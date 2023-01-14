@@ -25,6 +25,8 @@ public class Drive extends SubsystemBase {
 
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
+	// https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html
+
 	public Drive() {
 		leftSlave.set(ControlMode.Follower, LEFT_MASTER_ID);
 		rightSlave.set(ControlMode.Follower, RIGHT_MASTER_ID);
@@ -34,7 +36,4 @@ public class Drive extends SubsystemBase {
 		differentialDrive.arcadeDrive(speed, rotation);
 	}
 
-	public boolean autoSequenceShutUp() {
-		return false;
-	}
 }
