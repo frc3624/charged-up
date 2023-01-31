@@ -4,10 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveTrain;
 import frc.robot.commands.LevelChargingStation;
 import frc.robot.subsystems.Drive;
 
@@ -19,12 +24,21 @@ import frc.robot.subsystems.Drive;
  * commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-	// The robot's subsystems and commands are defined here...
+	// I/O + Vision
+	UsbCamera rearCam = CameraServer.startAutomaticCapture();
+	CvSink cvSink = CameraServer.getVideo();
+	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
+	protected static final CommandXboxController xboxController = new CommandXboxController(
+			Constants.kDriverControllerPort);
+
+	// Subsystems
 	private final Drive drive = new Drive();
-	private final LevelChargingStation ct = new LevelChargingStation(drive);
+
+	// Commands
+	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
+	private final LevelChargingStation levelChargingStation = new LevelChargingStation(drive);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
-	private final CommandXboxController m_driverController = new CommandXboxController(Constants.kDriverControllerPort);
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -32,6 +46,7 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Configure the trigger bindings
 		configureBindings();
+		drive.setDefaultCommand(driveTrain);
 	}
 
 	/**

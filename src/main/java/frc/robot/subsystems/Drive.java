@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.LEFT_MASTER_ID;
-import static frc.robot.Constants.LEFT_SLAVE_ID;
-import static frc.robot.Constants.RIGHT_MASTER_ID;
-import static frc.robot.Constants.RIGHT_SLAVE_ID;
+import static frc.robot.Constants.LEFT_MASTER;
+import static frc.robot.Constants.LEFT_SLAVE;
+import static frc.robot.Constants.RIGHT_MASTER;
+import static frc.robot.Constants.RIGHT_SLAVE;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,18 +19,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drive extends SubsystemBase {
 
-	private final WPI_TalonSRX leftMaster = new WPI_TalonSRX(LEFT_MASTER_ID);
-	private final WPI_TalonSRX leftSlave = new WPI_TalonSRX(LEFT_SLAVE_ID);
-	private final WPI_TalonSRX rightMaster = new WPI_TalonSRX(RIGHT_MASTER_ID);
-	private final WPI_TalonSRX rightSlave = new WPI_TalonSRX(RIGHT_SLAVE_ID);
-
+	private final CANSparkMax leftMaster = new CANSparkMax(LEFT_MASTER, MotorType.kBrushless);
+	private final CANSparkMax leftSlave = new CANSparkMax(LEFT_SLAVE, MotorType.kBrushless);
+	private final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
+	private final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
 	// https://docs.wpilib.org/en/stable/docs/software/pathplanning/trajectory-tutorial/creating-drive-subsystem.html
 
 	public Drive() {
-		leftSlave.set(ControlMode.Follower, LEFT_MASTER_ID);
-		rightSlave.set(ControlMode.Follower, RIGHT_MASTER_ID);
+		rightSlave.follow(rightMaster);
+		leftSlave.follow(leftMaster);
+
+		leftMaster.setIdleMode(IdleMode.kBrake);
+		rightMaster.setIdleMode(IdleMode.kBrake);
+		leftSlave.setIdleMode(IdleMode.kBrake);
+		rightSlave.setIdleMode(IdleMode.kBrake);
 	}
 
 	public void arcadeDrive(double speed, double rotation) {
