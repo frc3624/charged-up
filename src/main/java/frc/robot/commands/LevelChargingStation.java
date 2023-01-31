@@ -7,12 +7,13 @@ package frc.robot.commands;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drive;
 
 public class LevelChargingStation extends CommandBase {
 	private AHRS gyro = new AHRS();
 	private final Drive drive;
-
+	//private final CommandXboxController button;
 	public LevelChargingStation(Drive drive) {
 		this.drive = drive;
 		addRequirements(drive);

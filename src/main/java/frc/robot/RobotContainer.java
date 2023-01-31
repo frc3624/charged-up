@@ -9,12 +9,22 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ChangeServo;
 import frc.robot.commands.DriveTrain;
 import frc.robot.commands.LevelChargingStation;
+import frc.robot.commands.ShiftDump;
+import frc.robot.commands.ShiftTrap;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Dumper;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Trap;
+
+import static frc.robot.Constants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -24,20 +34,30 @@ import frc.robot.subsystems.Drive;
  * commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+	//Controller Stuff
+	protected static final CommandXboxController xboxController = new CommandXboxController(
+			Constants.kDriverControllerPort);
+	private final Trigger dumpButton = xboxController.y();
+	private final Trigger trapButton = xboxController.x();
+	private final Trigger servoButton = xboxController.leftStick();
 	// I/O + Vision
 	UsbCamera rearCam = CameraServer.startAutomaticCapture();
 	CvSink cvSink = CameraServer.getVideo();
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
-	protected static final CommandXboxController xboxController = new CommandXboxController(
-			Constants.kDriverControllerPort);
+	
 
 	// Subsystems
 	private final Drive drive = new Drive();
-
+	private final Dumper dump = new Dumper();
+	private final Trap trap = new Trap();
+	private final Limelight limelight = new Limelight();
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
 	private final LevelChargingStation levelChargingStation = new LevelChargingStation(drive);
-
+	private final ShiftDump dumper = new ShiftDump(dump);
+	private final ShiftTrap trapper = new ShiftTrap(trap);
+	private final ChangeServo servo = new ChangeServo(limelight, xboxController);
+	
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
 	/**
@@ -46,6 +66,7 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Configure the trigger bindings
 		configureBindings();
+		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
 	}
 
@@ -68,6 +89,12 @@ public class RobotContainer {
 		// pressed,
 		// cancelling on release.
 		// m_driverController.b().whileTrue(drive.autoSequenceShutUp());
+		
+	}
+	private void configureButtonBindings(){
+		servoButton.whileTrue(servo);
+		dumpButton.whileTrue(dumper);
+		trapButton.whileTrue(trapper);
 	}
 
 	/**

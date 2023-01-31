@@ -15,10 +15,20 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
 	public static final int kDriverControllerPort = 0;
+
+	//DRIVE IDS
 	public final static int LEFT_MASTER = 1, LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4;
+	
+	//LIMELIGHT IDS
+	public final static int SERVO = 0;
 
-	public final static int PCM_ID = 0, GEARSHIFT_FORWARD_CHANNEL = 6, GEARSHIFT_REVERSE_CHANNEL = 7;
+	//PCM ID AND PISTON POSITIONS
+	public final static int PCM_ID = 0, DUMP_IN = 6, DUMP_OUT = 7, TRAP_IN = 8, TRAP_OUT = 9;
 
+	//CONTROLLER IDS
 	public final static int JOYSTICK_ID = 0;
+	// public static final int BUTTON_A = 1, BUTTON_B = 2, BUTTON_X = 3, BUTTON_Y = 4;
+	// public static final int BUTTON_LB = 5, BUTTON_RB = 6;
 }
