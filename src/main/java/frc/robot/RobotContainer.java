@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -19,6 +23,9 @@ import frc.robot.subsystems.Drive;
  * commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+	UsbCamera rearCam = CameraServer.startAutomaticCapture();
+	CvSink cvSink = CameraServer.getVideo();
+	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
 	// The robot's subsystems and commands are defined here...
 	private final Drive drive = new Drive();
 	private final LevelChargingStation ct = new LevelChargingStation(drive);
