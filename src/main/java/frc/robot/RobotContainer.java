@@ -9,9 +9,7 @@ import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ChangeServo;
@@ -24,8 +22,6 @@ import frc.robot.subsystems.Dumper;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Trap;
 
-import static frc.robot.Constants.*;
-
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -34,7 +30,7 @@ import static frc.robot.Constants.*;
  * commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-	//Controller Stuff
+	// Controller Stuff
 	protected static final CommandXboxController xboxController = new CommandXboxController(
 			Constants.kDriverControllerPort);
 	private final Trigger dumpButton = xboxController.y();
@@ -44,7 +40,6 @@ public class RobotContainer {
 	UsbCamera rearCam = CameraServer.startAutomaticCapture();
 	CvSink cvSink = CameraServer.getVideo();
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
-	
 
 	// Subsystems
 	private final Drive drive = new Drive();
@@ -57,7 +52,7 @@ public class RobotContainer {
 	private final ShiftDump dumper = new ShiftDump(dump);
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final ChangeServo servo = new ChangeServo(limelight, xboxController);
-	
+
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
 	/**
@@ -89,9 +84,9 @@ public class RobotContainer {
 		// pressed,
 		// cancelling on release.
 		// m_driverController.b().whileTrue(drive.autoSequenceShutUp());
-		
+
 	}
-	private void configureButtonBindings(){
+	private void configureButtonBindings() {
 		servoButton.whileTrue(servo);
 		dumpButton.whileTrue(dumper);
 		trapButton.whileTrue(trapper);

@@ -4,26 +4,23 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-
 import static frc.robot.Constants.*;
 
-
 public class Limelight extends SubsystemBase {
-  /** Creates a new Limelight. */
-  //private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+	/** Creates a new Limelight. */
+	// private final NetworkTable table =
+	// NetworkTableInstance.getDefault().getTable("limelight");
 	private final Servo servo = new Servo(SERVO);
-  
-  public void setPosition(double yPosition){
-    servo.setPosition(yPosition);
-  }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	public void setPosition(double yPosition) {
+		servo.setPosition(yPosition);
+	}
+
+	@Override
+
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }

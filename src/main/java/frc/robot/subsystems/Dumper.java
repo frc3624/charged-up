@@ -12,25 +12,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 
 public class Dumper extends SubsystemBase {
-  /** Creates a new Piston. */
-  private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
-  
-  public Dumper() {
-    piston.set(Value.kReverse);
-  }
-  //method to change dump position
-  //returns null
-  public void dump(){
-    if(piston.get() == Value.kForward)
+	/** Creates a new Piston. */
+	private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
+
+	public Dumper() {
+		piston.set(Value.kReverse);
+	}
+	// method to change dump position
+	// returns null
+	public void dump() {
+		if (piston.get() == Value.kForward)
 			piston.set(Value.kReverse);
-		else if(piston.get() == Value.kReverse)
+		else if (piston.get() == Value.kReverse)
 			piston.set(Value.kForward);
 		else
 			piston.set(Value.kReverse);
-  }
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }
