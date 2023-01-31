@@ -25,7 +25,7 @@ public class LevelChargingStation extends CommandBase {
 	@Override
 	public void execute() {
 		if (gyro.getAngle() < -3) {
-			drive.arcadeDrive(.6, 0);
+		    drive.arcadeDrive(.6, 0);
 		} else if (gyro.getAngle() > 3) {
 			drive.arcadeDrive(-.6, 0);
 		} else {

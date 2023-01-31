@@ -16,8 +16,7 @@ package frc.robot;
  */
 public final class Constants {
 	public static final int kDriverControllerPort = 0;
-	public final static int LEFT_MASTER_ID = 1, LEFT_SLAVE_ID = 3, RIGHT_MASTER_ID = 2, RIGHT_SLAVE_ID = 4;
-	public final static int CLIMB_MOTOR_ID = 19;
+	public final static int LEFT_MASTER = 1, LEFT_SLAVE = 3, RIGHT_MASTER = 2, RIGHT_SLAVE = 4;
 
 	public final static int PCM_ID = 0, GEARSHIFT_FORWARD_CHANNEL = 6, GEARSHIFT_REVERSE_CHANNEL = 7;
 
