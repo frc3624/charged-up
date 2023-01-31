@@ -12,11 +12,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/**
- * This is a temporary drive subsystem. This will be updated once the robot
- * frame is constructed and the drive train is installed.
- */
-
 public class Drive extends SubsystemBase {
 
 	private final CANSparkMax leftMaster = new CANSparkMax(LEFT_MASTER, MotorType.kBrushless);
@@ -26,6 +21,10 @@ public class Drive extends SubsystemBase {
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
 	public Drive() {
+		configureMotors();
+	}
+
+	private void configureMotors() {
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
 
@@ -39,7 +38,4 @@ public class Drive extends SubsystemBase {
 		differentialDrive.arcadeDrive(speed, rotation);
 	}
 
-	public boolean autoSequenceShutUp() {
-		return false;
-	}
 }
