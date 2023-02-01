@@ -4,23 +4,33 @@
 
 package frc.robot.commands;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Gyro;
 
 public class LevelChargingStation extends CommandBase {
-	Gyro gyro = new Gyro();
+	private AHRS gyro = new AHRS();
 	private final Drive drive;
 	// private final CommandXboxController button;
-	public LevelChargingStation(Gyro gyro, Drive drive) {
-		this.gyro = gyro;
+	public LevelChargingStation(Drive drive) {
 		this.drive = drive;
 		addRequirements(drive);
 	}
 
+	public void adjustAngle() {
+		if (gyro.getAngle() < -3) {
+			drive.arcadeDrive(.6, 0);
+		} else if (gyro.getAngle() > 3) {
+			drive.arcadeDrive(-.6, 0);
+		} else {
+			drive.arcadeDrive(0, 0);
+		}
+	}
+
 	@Override
 	public void initialize() {
-		gyro.adjustAngle(drive);
+		adjustAngle();
 	}
 
 	@Override

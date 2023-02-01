@@ -8,7 +8,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,10 +46,9 @@ public class RobotContainer {
 	private final Dumper dump = new Dumper();
 	private final Trap trap = new Trap();
 	private final Limelight limelight = new Limelight();
-	private final Gyro gyro;
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
-	private final LevelChargingStation leveler = new LevelChargingStation(gyro, drive);
+	private final LevelChargingStation leveler = new LevelChargingStation(drive);
 	private final ShiftDump dumper = new ShiftDump(dump);
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final ChangeServo servo = new ChangeServo(limelight, xboxController);
