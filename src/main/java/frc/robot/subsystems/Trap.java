@@ -4,30 +4,31 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.PCM_ID;
+import static frc.robot.Constants.TRAP_IN;
+import static frc.robot.Constants.TRAP_OUT;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.Constants.*;
-
 public class Trap extends SubsystemBase {
-	/** Creates a new Trap. */
+
 	private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID, PneumaticsModuleType.REVPH, TRAP_IN, TRAP_OUT);
+
 	public Trap() {
 		piston.set(Value.kReverse);
 	}
+
 	public void trap() {
-		if (piston.get() == Value.kForward)
+		if (piston.get() == Value.kForward) {
 			piston.set(Value.kReverse);
-		else if (piston.get() == Value.kReverse)
+		} else if (piston.get() == Value.kReverse) {
 			piston.set(Value.kForward);
-		else
+		} else {
 			piston.set(Value.kReverse);
+		}
 	}
 
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
-	}
 }
