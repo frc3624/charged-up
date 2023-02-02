@@ -4,10 +4,14 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.XBOX_ID;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -18,15 +22,14 @@ import frc.robot.commands.dumpy.ShiftDump;
 import frc.robot.commands.dumpy.ShiftTrap;
 import frc.robot.commands.limelight.DrivePosition;
 import frc.robot.commands.limelight.IntakePosition;
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Dumper;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Trap;
+import frc.robot.subsystems.drivetrain.Drive;
+import frc.robot.subsystems.dumpy.Dumper;
+import frc.robot.subsystems.dumpy.Trap;
 
 public class RobotContainer {
 	// I/O + Vision
-	protected static final CommandXboxController xboxController = new CommandXboxController(
-			Constants.kDriverControllerPort);
+	protected static final CommandXboxController xboxController = new CommandXboxController(XBOX_ID);
 	private final Trigger dumpButton = xboxController.y();
 	private final Trigger trapButton = xboxController.x();
 	private final Trigger intakeViewButton = xboxController.povDown();
@@ -35,6 +38,9 @@ public class RobotContainer {
 	UsbCamera rearCam = CameraServer.startAutomaticCapture();
 	CvSink cvSink = CameraServer.getVideo();
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
+
+	// Single instance of Compressor, easy access
+	private final Compressor compressor = new Compressor(PneumaticsModuleType.REVPH);
 
 	// Subsystems
 	private final Drive drive = new Drive();

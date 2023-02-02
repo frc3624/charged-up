@@ -5,7 +5,7 @@
 package frc.robot.commands.dumpy;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Trap;
+import frc.robot.subsystems.dumpy.Trap;
 
 public class ShiftTrap extends CommandBase {
 	/** Creates a new ShiftTrap. */

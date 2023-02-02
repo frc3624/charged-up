@@ -5,7 +5,7 @@
 package frc.robot.commands.dumpy;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Dumper;
+import frc.robot.subsystems.dumpy.Dumper;
 
 public class ShiftDump extends CommandBase {
 	/** Creates a new ShiftDump. */
