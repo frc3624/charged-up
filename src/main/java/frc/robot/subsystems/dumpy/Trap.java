@@ -21,8 +21,10 @@ public class Trap extends SubsystemBase {
 		piston.set(Value.kReverse);
 	}
 
-	// @LauraLerebours fix this method name + documentation
-	public void trap() {
+	/*
+	 * Release Trapdoor and expel game piece from Dumpy
+	 */
+	public void toggleDoor() {
 		if (piston.get() == Value.kForward) {
 			piston.set(Value.kReverse);
 		} else if (piston.get() == Value.kReverse) {

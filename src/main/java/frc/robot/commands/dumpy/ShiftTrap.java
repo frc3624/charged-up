@@ -19,7 +19,7 @@ public class ShiftTrap extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		trap.trap();
+		trap.toggleDoor();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
