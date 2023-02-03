@@ -9,7 +9,7 @@ import frc.robot.subsystems.dumpy.Trap;
 
 public class ShiftTrap extends CommandBase {
 	/** Creates a new ShiftTrap. */
-	Trap trap = new Trap();
+	private final Trap trap;
 	public ShiftTrap(Trap trap) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.trap = trap;
@@ -19,7 +19,7 @@ public class ShiftTrap extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		trap.toggleDoor();
+		// trap.toggleDoor();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.

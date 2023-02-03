@@ -24,8 +24,8 @@ public final class Constants {
 
 		// MUST UPDATE THESE WITH SYSID
 		public final double kV = 0.0, kA = 0.0, kVAngular = 0.0, kAAngular = 0.0;
-		public final double TRACK_WIDTH = 25.4;
-		public final double GEAR_REDUCTION = 4.5;
+		public final double TRACK_WIDTH = Units.inchesToMeters(18.75);
+		public final double GEAR_REDUCTION = 13.33;
 		public final double WHEEL_DIAMETER = Units.inchesToMeters(6);
 	}
 
@@ -33,7 +33,8 @@ public final class Constants {
 	public final static int SERVO = 0;
 
 	// PCM ID AND PISTON POSITIONS
-	public final static int PCM_ID = 0, DUMP_IN = 6, DUMP_OUT = 7, TRAP_IN = 8, TRAP_OUT = 9;
+	public final static int PCM_ID = 20, DUMP_IN = 0, DUMP_OUT = 1;
+	// TRAP_IN = 8, TRAP_OUT = 9;
 
 	// CONTROLLER IDS
 	public final static int XBOX_ID = 0;

@@ -9,7 +9,7 @@ import frc.robot.subsystems.dumpy.Dumper;
 
 public class ShiftDump extends CommandBase {
 	/** Creates a new ShiftDump. */
-	Dumper dumpy = new Dumper();
+	private final Dumper dumpy;
 	public ShiftDump(Dumper dumpy) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.dumpy = dumpy;
