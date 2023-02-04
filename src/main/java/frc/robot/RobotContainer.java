@@ -30,6 +30,7 @@ public class RobotContainer {
 	protected static final CommandXboxController xboxController = new CommandXboxController(XBOX_ID);
 	private final Trigger dumpButton = xboxController.y();
 	private final Trigger trapButton = xboxController.x();
+	private final Trigger balanceButton = xboxController.a();
 	private final Trigger intakeViewButton = xboxController.povDown();
 	private final Trigger driveViewButton = xboxController.povUp();
 
@@ -62,6 +63,7 @@ public class RobotContainer {
 		// Configure the trigger bindings
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
+		xboxController.start();
 	}
 
 	private void configureButtonBindings() {
@@ -69,6 +71,7 @@ public class RobotContainer {
 		trapButton.whileTrue(trapper);
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
+
 	}
 
 	/**

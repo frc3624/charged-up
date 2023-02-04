@@ -20,6 +20,6 @@ public class DriveTrain extends CommandBase {
 
 	@Override
 	public void execute() {
-		drive.arcadeDrive(xboxController.getRightX(), -xboxController.getLeftY());
+		drive.arcadeDrive(xboxController.getLeftY(), -xboxController.getRightX());
 	}
 }

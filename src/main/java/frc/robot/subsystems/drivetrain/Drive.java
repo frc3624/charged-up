@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivetrain;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -17,6 +18,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	private final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
 	private final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
+
+	private final AHRS ahrs = new AHRS();
 
 	private Field2d field = new Field2d();
 	// private DifferentialDrivetrainSim diffDriveSim = new
@@ -38,18 +41,33 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		SmartDashboard.putData(field);
 	}
 
+	public double getAngle() {
+		return ahrs.getAngle();
+	}
+
 	private void configureMotors() {
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
 
-		leftMaster.setIdleMode(IdleMode.kCoast);
-		rightMaster.setIdleMode(IdleMode.kCoast);
-		leftSlave.setIdleMode(IdleMode.kCoast);
-		rightSlave.setIdleMode(IdleMode.kCoast);
+		leftMaster.setIdleMode(IdleMode.kBrake);
+		rightMaster.setIdleMode(IdleMode.kBrake);
+		leftSlave.setIdleMode(IdleMode.kBrake);
+		rightSlave.setIdleMode(IdleMode.kBrake);
 	}
 
 	public void arcadeDrive(double speed, double rotation) {
 		differentialDrive.arcadeDrive(speed, rotation);
+		System.out.println(Math.sqrt(Math.pow(ahrs.getRawAccelX(), 2) + Math.pow(ahrs.getRawAccelY(), 2)));
+	}
+
+	public void balanceBot() {
+		if (getAngle() >= 0.5) {
+			arcadeDrive(.6, 0);
+		} else if (getAngle() <= 0.5) {
+			arcadeDrive(.6, 0);
+		} else {
+			arcadeDrive(0, 0);
+		}
 	}
 
 	public void periodic() {
