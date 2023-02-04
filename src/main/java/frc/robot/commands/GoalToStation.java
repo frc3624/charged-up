@@ -5,7 +5,7 @@
 package frc.robot.commands;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.drivetrain.Drive;
 
 public class GoalToStation extends SequentialCommandGroup {
 	public GoalToStation(Drive drive) {

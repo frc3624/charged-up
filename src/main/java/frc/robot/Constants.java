@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -23,11 +24,25 @@ public final class Constants {
 		public final int LEFT_MASTER = 1, LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4;
 
 		// MUST UPDATE THESE WITH SYSID
-		public final double kV = 0.0, kA = 0.0, kVAngular = 0.0, kAAngular = 0.0;
+		public final double kS = -.59426, kV = 2.9369, kA = 9.9175, kSAngular = 0.37161, kVAngular = 1.9639, kAAngular = 0.85077;
 		public final double TRACK_WIDTH = Units.inchesToMeters(18.75);
-		public final double GEAR_REDUCTION = 13.33;
+		public final double GEAR_REDUCTION = 14.17;
 		public final double WHEEL_DIAMETER = Units.inchesToMeters(6);
 	}
+
+	//weird value? get more data?
+	public static double kPDriveVel = 0.;
+
+	//auto stuff (clean up later)
+	public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(DriveSettings.TRACK_WIDTH);
+
+	//tune this up later
+	public static double kMaxSpeed = 2.7, kMaxAcceleration = 0.8;
+
+	// Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
 
 	// LIMELIGHT IDS
 	public final static int SERVO = 0;
@@ -41,4 +56,7 @@ public final class Constants {
 	// public static final int BUTTON_A = 1, BUTTON_B = 2, BUTTON_X = 3, BUTTON_Y =
 	// 4;
 	// public static final int BUTTON_LB = 5, BUTTON_RB = 6;
+
+	//motor things
+	public static final double kEncoderDistancePerTick = 0.00992857142;
 }
