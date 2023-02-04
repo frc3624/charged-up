@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -15,10 +17,28 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-	public static final int kDriverControllerPort = 0;
-	public final static int LEFT_MASTER = 1, LEFT_SLAVE = 3, RIGHT_MASTER = 2, RIGHT_SLAVE = 4;
 
-	public final static int PCM_ID = 0, GEARSHIFT_FORWARD_CHANNEL = 6, GEARSHIFT_REVERSE_CHANNEL = 7;
+	public interface DriveSettings {
+		// DRIVE IDS
+		public final int LEFT_MASTER = 1, LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4;
 
-	public final static int JOYSTICK_ID = 0;
+		// MUST UPDATE THESE WITH SYSID
+		public final double kV = 0.0, kA = 0.0, kVAngular = 0.0, kAAngular = 0.0;
+		public final double TRACK_WIDTH = Units.inchesToMeters(18.75);
+		public final double GEAR_REDUCTION = 13.33;
+		public final double WHEEL_DIAMETER = Units.inchesToMeters(6);
+	}
+
+	// LIMELIGHT IDS
+	public final static int SERVO = 0;
+
+	// PCM ID AND PISTON POSITIONS
+	public final static int PCM_ID = 20, DUMP_IN = 0, DUMP_OUT = 1;
+	// TRAP_IN = 8, TRAP_OUT = 9;
+
+	// CONTROLLER IDS
+	public final static int XBOX_ID = 0;
+	// public static final int BUTTON_A = 1, BUTTON_B = 2, BUTTON_X = 3, BUTTON_Y =
+	// 4;
+	// public static final int BUTTON_LB = 5, BUTTON_RB = 6;
 }
