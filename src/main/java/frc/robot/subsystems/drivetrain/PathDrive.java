@@ -15,9 +15,9 @@ public class PathDrive extends Drive{
 	Pose2d pose;
 	private final RelativeEncoder leftMasterEncoder = leftMaster.getEncoder();
 	private final RelativeEncoder rightMasterEncoder = rightMaster.getEncoder();
+
 	//the odometry tracks the robot's pose
 	private final DifferentialDriveOdometry odometry;
-	//gyroscope measures the change in the robot's heading
 	private final AHRS navX = new AHRS();
 
 	public PathDrive() {
@@ -30,7 +30,7 @@ public class PathDrive extends Drive{
 
 	SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(kS, kV, kA);
 
-	//fill in with kp, ki, and kd values later
+	// fill in with kp, ki, and kd values later
 	PIDController leftPidController = new PIDController(0.01831, 0, .001);
 	PIDController rightPidController = new PIDController(0.01831, 0, .001);
 

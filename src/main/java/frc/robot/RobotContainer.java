@@ -27,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Autos;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
 import frc.robot.commands.dumpy.ShiftDump;
@@ -35,7 +34,6 @@ import frc.robot.commands.dumpy.ShiftTrap;
 import frc.robot.commands.limelight.DrivePosition;
 import frc.robot.commands.limelight.IntakePosition;
 import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.drivetrain.PathDrive;
 import frc.robot.subsystems.dumpy.Dumper;
 import frc.robot.subsystems.dumpy.Trap;
@@ -49,7 +47,8 @@ public class RobotContainer {
 	private final Trigger driveViewButton = xboxController.povUp();
 
 	// fix later
-	public final double kS = 0.083938, kV = 3.2001, kA = 0.23026, kSAngular = 0.09612, kVAngular = 3.0182, kAAngular = 0.27358;
+	public final double kS = 0.083938, kV = 3.2001, kA = 0.23026, kSAngular = 0.09612, kVAngular = 3.0182,
+			kAAngular = 0.27358;
 	public final double TRACK_WIDTH = Units.inchesToMeters(18.75);
 	public final double GEAR_REDUCTION = 14.17;
 	public final double WHEEL_DIAMETER = Units.inchesToMeters(6);
@@ -94,65 +93,60 @@ public class RobotContainer {
 	}
 
 	/**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // Create a voltage constraint to ensure we don't accelerate too fast
-    var autoVoltageConstraint =
-        new DifferentialDriveVoltageConstraint(
-            new SimpleMotorFeedforward(
-                kS,
-                kV,
-                kA),
-            Constants.kDriveKinematics,
-            10);
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
+	public Command getAutonomousCommand() {
+		// Create a voltage constraint to ensure we don't accelerate too fast
+		var autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+				new SimpleMotorFeedforward(
+						kS,
+						kV,
+						kA),
+				Constants.kDriveKinematics,
+				10);
 
-    // Create config for trajectory
-    TrajectoryConfig config =
-        new TrajectoryConfig(
-                Constants.kMaxSpeed,
-                Constants.kMaxAcceleration)
-            // Add kinematics to ensure max speed is actually obeyed
-            .setKinematics(Constants.kDriveKinematics)
-            // Apply the voltage constraint
-            .addConstraint(autoVoltageConstraint);
+		// Create config for trajectory
+		TrajectoryConfig config = new TrajectoryConfig(
+				Constants.kMaxSpeed,
+				Constants.kMaxAcceleration)
+				// Add kinematics to ensure max speed is actually obeyed
+				.setKinematics(Constants.kDriveKinematics)
+				// Apply the voltage constraint
+				.addConstraint(autoVoltageConstraint);
 
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, new Rotation2d(0)),
-            // Pass config
-            config);
+		// An example trajectory to follow. All units in meters.
+		Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+				// Start at the origin facing the +X direction
+				new Pose2d(0, 0, new Rotation2d(0)),
+				// Pass through these two interior waypoints, making an 's' curve path
+				List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+				// End 3 meters straight ahead of where we started, facing forward
+				new Pose2d(3, 0, new Rotation2d(0)),
+				// Pass config
+				config);
 
-    RamseteCommand ramseteCommand =
-        new RamseteCommand(
-            exampleTrajectory,
-            pathDrive::getPose,
-            new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-            new SimpleMotorFeedforward(
-                kS,
-                kV,
-                kA),
-            Constants.kDriveKinematics,
-            pathDrive::getWheelSpeeds,
-            new PIDController(Constants.kPDriveVel, 0, 0),
-            new PIDController(Constants.kPDriveVel, 0, 0),
-            // RamseteCommand passes volts to the callback
-            pathDrive::tankDriveVolts,
-            pathDrive);
+		RamseteCommand ramseteCommand = new RamseteCommand(
+				exampleTrajectory,
+				pathDrive::getPose,
+				new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+				new SimpleMotorFeedforward(
+						kS,
+						kV,
+						kA),
+				Constants.kDriveKinematics,
+				pathDrive::getWheelSpeeds,
+				new PIDController(Constants.kPDriveVel, 0, 0),
+				new PIDController(Constants.kPDriveVel, 0, 0),
+				// RamseteCommand passes volts to the callback
+				pathDrive::tankDriveVolts,
+				pathDrive);
 
-    // Reset odometry to the starting pose of the trajectory.
-    pathDrive.resetOdometry(exampleTrajectory.getInitialPose());
+		// Reset odometry to the starting pose of the trajectory.
+		pathDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
-    // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> pathDrive.tankDriveVolts(0, 0));
-  }
+		// Run path following command, then stop at the end.
+		return ramseteCommand.andThen(() -> pathDrive.tankDriveVolts(0, 0));
+	}
 }
-
