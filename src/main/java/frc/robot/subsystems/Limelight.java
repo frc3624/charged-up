@@ -4,20 +4,19 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.SERVO;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LimelightSettings;
 
-public class Limelight extends SubsystemBase {
+public class Limelight extends SubsystemBase implements LimelightSettings {
 
 	private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	private final Servo servo = new Servo(SERVO);
 
 	public enum LimelightAngle {
-		INTAKE_ANGLE(75), DRIVE_ANGLE(25);
+		INTAKE_ANGLE(35), DRIVE_ANGLE(5);
 
 		private final int angle;
 
@@ -49,7 +48,7 @@ public class Limelight extends SubsystemBase {
 	}
 
 	public void setPosition(LimelightAngle angle) {
-		servo.set(angle.getAngle());
+		servo.setAngle(angle.getAngle());
 	}
 
 }

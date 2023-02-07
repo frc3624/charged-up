@@ -4,11 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import static frc.robot.Constants.PCM_ID;
+import frc.robot.Constants.GlobalSettings;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -17,12 +22,17 @@ import static frc.robot.Constants.PCM_ID;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot implements GlobalSettings {
 	private Command m_autonomousCommand;
 	private RobotContainer m_robotContainer;
 	private final PneumaticHub ph = new PneumaticHub(PCM_ID);
 
-	// Trajectory trajectory = new Trajectory();
+	// NetworkTableInstance instance = new NetworkTableInstance.getDefault();
+	// NetworkTableInstance.getDefault().getTable("pneumatics");
+	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
+	private final GenericEntry pressure = tab.add("Pressure", ph.getPressure(PCM_ID)).getEntry();
+
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -42,7 +52,7 @@ public class Robot extends TimedRobot {
 		// }
 		// m_robotContainer = new RobotContainer();
 		m_robotContainer = new RobotContainer();
-		ph.enableCompressorAnalog(100, 120);
+		ph.enableCompressorDigital();
 	}
 
 	/**

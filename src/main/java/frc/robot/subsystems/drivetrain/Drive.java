@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drivetrain;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -24,6 +25,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
 	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
+
+	private final AHRS ahrs = new AHRS();
 	
 	//protected EncoderSim leftEncoderSim = new EncoderSim();
 	;
@@ -46,6 +49,10 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		SmartDashboard.putData(field);
 	}
 
+	public double getAngle() {
+		return ahrs.getAngle();
+	}
+
 	private void configureMotors() {
 		rightSlave.follow(rightMaster);
 		leftSlave.follow(leftMaster);
@@ -58,6 +65,16 @@ public class Drive extends SubsystemBase implements DriveSettings {
 
 	public void arcadeDrive(double speed, double rotation) {
 		differentialDrive.arcadeDrive(speed, rotation);
+	}
+
+	public void balanceBot() {
+		if (getAngle() >= 0.5) {
+			arcadeDrive(.6, 0);
+		} else if (getAngle() <= 0.5) {
+			arcadeDrive(.6, 0);
+		} else {
+			arcadeDrive(0, 0);
+		}
 	}
 
 	public void periodic() {
