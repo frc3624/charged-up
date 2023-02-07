@@ -7,9 +7,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,8 +24,9 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
 	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-
-
+	
+	//protected EncoderSim leftEncoderSim = new EncoderSim();
+	;
 	protected Field2d field = new Field2d();
 	protected DifferentialDrivetrainSim diffDriveSim = new DifferentialDrivetrainSim(
 			LinearSystemId.identifyDrivetrainSystem(
@@ -36,7 +39,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 			GEAR_REDUCTION,
 			TRACK_WIDTH,
 			WHEEL_DIAMETER / 2,
-			VecBuilder.fill(0, 0, 0, 0, 0, 0, 0));
+			VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
 
 	public Drive() {
 		configureMotors();
@@ -63,9 +66,15 @@ public class Drive extends SubsystemBase implements DriveSettings {
 
 	@Override
 	public void simulationPeriodic() {
-		diffDriveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(), -rightMaster.get() * RobotController.getInputVoltage());
+		diffDriveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(), rightMaster.get() * RobotController.getInputVoltage());
 		diffDriveSim.update(0.02);
 
+		// leftEncoderSim.setDistance(diffDriveSim.getLeftPositionMeters());
+  		// leftEncoderSim.setRate(diffDriveSim.getLeftVelocityMetersPerSecond());
+  		// rightEncoderSim.setDistance(diffDriveSim.getRightPositionMeters());
+  		// rightEncoderSim.setRate(diffDriveSim.getRightVelocityMetersPerSecond());
+  		// gyroSim.setAngle(-diffDriveSim.getHeading().getDegrees());
 
+		
 	}
 }

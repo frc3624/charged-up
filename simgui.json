@@ -20,6 +20,14 @@
         "header": {
           "open": true
         }
+      },
+      "window": {
+        "visible": false
+      }
+    },
+    "RoboRIO": {
+      "window": {
+        "visible": true
       }
     }
   },
