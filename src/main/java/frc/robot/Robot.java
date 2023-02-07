@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.PCM_ID;
+
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import static frc.robot.Constants.PCM_ID;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,6 +26,12 @@ public class Robot extends TimedRobot {
 	private RobotContainer m_robotContainer;
 	private final PneumaticHub ph = new PneumaticHub(PCM_ID);
 
+	// NetworkTableInstance instance = new NetworkTableInstance.getDefault();
+	// NetworkTable table =
+	// NetworkTableInstance.getDefault().getTable("pneumatics");
+	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
+	private final GenericEntry pressure = tab.add("Pressure", (int) ph.getPressure(PCM_ID)).getEntry();
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -32,7 +42,7 @@ public class Robot extends TimedRobot {
 		// and put our
 		// autonomous chooser on the dashboard.
 		m_robotContainer = new RobotContainer();
-		ph.enableCompressorAnalog(100, 120);
+		ph.enableCompressorDigital();
 	}
 
 	/**

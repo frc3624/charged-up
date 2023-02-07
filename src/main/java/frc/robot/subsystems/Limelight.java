@@ -16,8 +16,12 @@ public class Limelight extends SubsystemBase {
 	private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	private final Servo servo = new Servo(SERVO);
 
+	public double getServoAngle() {
+		return servo.getAngle();
+	}
+
 	public enum LimelightAngle {
-		INTAKE_ANGLE(75), DRIVE_ANGLE(25);
+		INTAKE_ANGLE(45), DRIVE_ANGLE(5);
 
 		private final int angle;
 

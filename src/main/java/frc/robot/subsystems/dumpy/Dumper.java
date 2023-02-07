@@ -18,7 +18,7 @@ public class Dumper extends SubsystemBase {
 	private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
 
 	public Dumper() {
-		piston.set(Value.kForward);
+		piston.set(Value.kReverse);
 	}
 
 	/**

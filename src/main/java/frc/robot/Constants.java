@@ -30,7 +30,7 @@ public final class Constants {
 	}
 
 	// LIMELIGHT IDS
-	public final static int SERVO = 0;
+	public final static int SERVO = 9;
 
 	// PCM ID AND PISTON POSITIONS
 	public final static int PCM_ID = 20, DUMP_IN = 0, DUMP_OUT = 1;
