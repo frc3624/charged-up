@@ -18,6 +18,11 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
+	public interface GlobalSettings {
+		public final int XBOX_ID = 0;
+		public final int PCM_ID = 20;
+	}
+
 	public interface DriveSettings {
 		// DRIVE IDS
 		public final int LEFT_MASTER = 1, LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4;
@@ -29,15 +34,15 @@ public final class Constants {
 		public final double WHEEL_DIAMETER = Units.inchesToMeters(6);
 	}
 
+	public interface PistonSettings extends GlobalSettings {
+		public final boolean DEFAULT_PISTON_STATE = false;
+		public final int DUMP = 0, TRAP = 1;
+	}
+
 	// LIMELIGHT IDS
 	public final static int SERVO = 9;
 
-	// PCM ID AND PISTON POSITIONS
-	public final static int PCM_ID = 20, DUMP = 0, TRAP = 1;
-	// TRAP_IN = 8, TRAP_OUT = 9;
-
 	// CONTROLLER IDS
-	public final static int XBOX_ID = 0;
 	// public static final int BUTTON_A = 1, BUTTON_B = 2, BUTTON_X = 3, BUTTON_Y =
 	// 4;
 	// public static final int BUTTON_LB = 5, BUTTON_RB = 6;

@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.XBOX_ID;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
@@ -13,6 +11,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.GlobalSettings;
 import frc.robot.commands.Autos;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
@@ -25,7 +24,7 @@ import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
 import frc.robot.subsystems.dumpy.Trap;
 
-public class RobotContainer {
+public class RobotContainer implements GlobalSettings {
 	// I/O + Vision
 	protected static final CommandXboxController xboxController = new CommandXboxController(XBOX_ID);
 	private final Trigger dumpButton = xboxController.y();

@@ -4,15 +4,13 @@
 
 package frc.robot.subsystems.dumpy;
 
-import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PistonSettings;
 
-public class Dumper extends SubsystemBase {
+public class Dumper extends SubsystemBase implements PistonSettings {
 
-	// private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID,
-	// PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
 	private final Solenoid piston = new Solenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP);
 	public Dumper() {
 		piston.set(false);
@@ -22,7 +20,7 @@ public class Dumper extends SubsystemBase {
 	 * Release Dumpy and expel game piece from Dumpy
 	 */
 	public void dump() {
-		piston.set(!(piston.get()));
+		piston.toggle();
 	}
 
 }

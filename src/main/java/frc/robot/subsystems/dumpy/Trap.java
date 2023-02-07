@@ -6,24 +6,22 @@ package frc.robot.subsystems.dumpy;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import static frc.robot.Constants.*;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PistonSettings;
 
-public class Trap extends SubsystemBase {
+public class Trap extends SubsystemBase implements PistonSettings {
 
 	private final Solenoid piston = new Solenoid(PCM_ID, PneumaticsModuleType.REVPH, TRAP);
 
 	public Trap() {
-		piston.set(true);
-		System.out.println((piston.get()));
+		piston.set(false);
 	}
 
 	/**
 	 * Release Trapdoor and expel game piece from Dumpy
 	 */
 	public void toggleDoor() {
-		piston.set(!(piston.get()));
+		piston.toggle();
 	}
 
 }
