@@ -30,8 +30,8 @@ public class RobotContainer implements GlobalSettings {
 	private final Trigger dumpButton = xboxController.y();
 	private final Trigger trapButton = xboxController.x();
 	private final Trigger balanceButton = xboxController.a();
-	private final Trigger intakeViewButton = xboxController.povDown();
-	private final Trigger driveViewButton = xboxController.povUp();
+	private final Trigger intakeViewButton = xboxController.povUp();
+	private final Trigger driveViewButton = xboxController.povDown();
 
 	UsbCamera rearCam = CameraServer.startAutomaticCapture();
 	CvSink cvSink = CameraServer.getVideo();

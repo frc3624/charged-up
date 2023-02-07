@@ -18,6 +18,5 @@ public class IntakePosition extends CommandBase {
 	@Override
 	public void initialize() {
 		limelight.setPosition(LimelightAngle.INTAKE_ANGLE);
-		System.out.println(limelight.getServoAngle());
 	}
 }

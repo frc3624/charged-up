@@ -18,6 +18,5 @@ public class DrivePosition extends CommandBase {
 	@Override
 	public void initialize() {
 		limelight.setPosition(LimelightAngle.DRIVE_ANGLE);
-		System.out.println(limelight.getServoAngle());
 	}
 }
