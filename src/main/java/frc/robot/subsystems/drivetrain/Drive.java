@@ -57,8 +57,6 @@ public class Drive extends SubsystemBase implements DriveSettings {
 
 	public void arcadeDrive(double speed, double rotation) {
 		differentialDrive.arcadeDrive(speed, rotation);
-		// System.out.println(Math.sqrt(Math.pow(ahrs.getRawAccelX(), 2) +
-		// Math.pow(ahrs.getRawAccelY(), 2)));
 	}
 
 	public void balanceBot() {

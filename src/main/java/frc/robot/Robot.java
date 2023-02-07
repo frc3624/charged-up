@@ -27,10 +27,9 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	private final PneumaticHub ph = new PneumaticHub(PCM_ID);
 
 	// NetworkTableInstance instance = new NetworkTableInstance.getDefault();
-	// NetworkTable table =
 	// NetworkTableInstance.getDefault().getTable("pneumatics");
 	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
-	private final GenericEntry pressure = tab.add("Pressure", (int) ph.getPressure(PCM_ID)).getEntry();
+	private final GenericEntry pressure = tab.add("Pressure", ph.getPressure(PCM_ID)).getEntry();
 
 	/**
 	 * This function is run when the robot is first started up and should be used
