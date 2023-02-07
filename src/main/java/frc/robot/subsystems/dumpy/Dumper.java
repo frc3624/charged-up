@@ -4,34 +4,25 @@
 
 package frc.robot.subsystems.dumpy;
 
-import static frc.robot.Constants.DUMP_IN;
-import static frc.robot.Constants.DUMP_OUT;
-import static frc.robot.Constants.PCM_ID;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Dumper extends SubsystemBase {
 
-	private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
-
+	// private final DoubleSolenoid piston = new DoubleSolenoid(PCM_ID,
+	// PneumaticsModuleType.REVPH, DUMP_IN, DUMP_OUT);
+	private final Solenoid piston = new Solenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP);
 	public Dumper() {
-		piston.set(Value.kReverse);
+		piston.set(false);
 	}
 
 	/**
 	 * Release Dumpy and expel game piece from Dumpy
 	 */
 	public void dump() {
-		if (piston.get() == Value.kForward) {
-			piston.set(Value.kReverse);
-		} else if (piston.get() == Value.kReverse) {
-			piston.set(Value.kForward);
-		} else {
-			piston.set(Value.kReverse);
-		}
+		piston.set(!(piston.get()));
 	}
 
 }

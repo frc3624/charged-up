@@ -33,7 +33,7 @@ public final class Constants {
 	public final static int SERVO = 9;
 
 	// PCM ID AND PISTON POSITIONS
-	public final static int PCM_ID = 20, DUMP_IN = 0, DUMP_OUT = 1;
+	public final static int PCM_ID = 20, DUMP = 0, TRAP = 1;
 	// TRAP_IN = 8, TRAP_OUT = 9;
 
 	// CONTROLLER IDS

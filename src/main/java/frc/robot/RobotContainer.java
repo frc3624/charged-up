@@ -71,7 +71,7 @@ public class RobotContainer {
 		trapButton.whileTrue(trapper);
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
-
+		balanceButton.whileTrue(leveler);
 	}
 
 	/**
