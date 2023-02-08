@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivetrain;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -24,7 +25,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
 	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-	
+	//protected final SparkMaxAlternateEncoder leftEncoder = new SparkMaxAlternateEncoder(leftMaster,MotorType.kBrushless, 4096);
+
 	//protected EncoderSim leftEncoderSim = new EncoderSim();
 	;
 	protected Field2d field = new Field2d();
