@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.XBOX_ID;
-
 import java.util.List;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -27,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoSettings;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
 import frc.robot.commands.dumpy.ShiftDump;
@@ -38,13 +37,14 @@ import frc.robot.subsystems.drivetrain.PathDrive;
 import frc.robot.subsystems.dumpy.Dumper;
 import frc.robot.subsystems.dumpy.Trap;
 
-public class RobotContainer {
-	// I/O + Vision
+public class RobotContainer implements AutoSettings{
+	// I/O + Visio
 	protected static final CommandXboxController xboxController = new CommandXboxController(XBOX_ID);
 	private final Trigger dumpButton = xboxController.y();
 	private final Trigger trapButton = xboxController.x();
-	private final Trigger intakeViewButton = xboxController.povDown();
-	private final Trigger driveViewButton = xboxController.povUp();
+	private final Trigger balanceButton = xboxController.a();
+	private final Trigger intakeViewButton = xboxController.povUp();
+	private final Trigger driveViewButton = xboxController.povDown();
 
 	// fix later
 	public final double kS = 0.083938, kV = 3.2001, kA = 0.23026, kSAngular = 0.09612, kVAngular = 3.0182,
@@ -90,6 +90,7 @@ public class RobotContainer {
 		trapButton.whileTrue(trapper);
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
+		balanceButton.whileTrue(leveler);
 	}
 
 	/**
@@ -104,15 +105,15 @@ public class RobotContainer {
 						kS,
 						kV,
 						kA),
-				Constants.kDriveKinematics,
+				kDriveKinematics,
 				10);
 
 		// Create config for trajectory
 		TrajectoryConfig config = new TrajectoryConfig(
-				Constants.kMaxSpeed,
-				Constants.kMaxAcceleration)
+				kMaxSpeed,
+				kMaxAcceleration)
 				// Add kinematics to ensure max speed is actually obeyed
-				.setKinematics(Constants.kDriveKinematics)
+				.setKinematics(kDriveKinematics)
 				// Apply the voltage constraint
 				.addConstraint(autoVoltageConstraint);
 
@@ -130,15 +131,15 @@ public class RobotContainer {
 		RamseteCommand ramseteCommand = new RamseteCommand(
 				exampleTrajectory,
 				pathDrive::getPose,
-				new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+				new RamseteController(kRamseteB, kRamseteZeta),
 				new SimpleMotorFeedforward(
 						kS,
 						kV,
 						kA),
-				Constants.kDriveKinematics,
+				kDriveKinematics,
 				pathDrive::getWheelSpeeds,
-				new PIDController(Constants.kPDriveVel, 0, 0),
-				new PIDController(Constants.kPDriveVel, 0, 0),
+				new PIDController(kPDriveVel, 0, 0),
+				new PIDController(kPDriveVel, 0, 0),
 				// RamseteCommand passes volts to the callback
 				pathDrive::tankDriveVolts,
 				pathDrive);
