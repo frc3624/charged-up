@@ -22,5 +22,6 @@ public class DriveTrain extends CommandBase {
 	public void execute() {
 		// drive.arcadeDrive(xboxController.getLeftY(), -xboxController.getRightX());
 		drive.arcadeDrive(xboxController.getRightX(), -xboxController.getLeftY());
+		System.out.println("Controller working");
 	}
 }
