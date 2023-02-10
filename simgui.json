@@ -57,5 +57,20 @@
         }
       }
     }
+  },
+  "NetworkTables Info": {
+    "Clients": {
+      "open": true
+    },
+    "Connections": {
+      "open": true
+    },
+    "Server": {
+      "open": true
+    },
+    "shuffleboard": {
+      "open": true
+    },
+    "visible": true
   }
 }
