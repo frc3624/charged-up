@@ -4,6 +4,8 @@
 
 package frc.robot.commands.drive;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardHomeHandler;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.drivetrain.Drive;
@@ -22,6 +24,6 @@ public class DriveTrain extends CommandBase {
 	public void execute() {
 		// drive.arcadeDrive(xboxController.getLeftY(), -xboxController.getRightX());
 		drive.arcadeDrive(xboxController.getRightX(), -xboxController.getLeftY());
-		System.out.println("Controller working");
+		
 	}
 }

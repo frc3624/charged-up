@@ -88,6 +88,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	public void simulationPeriodic() {
 		diffDriveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(), rightMaster.get() * RobotController.getInputVoltage());
 		diffDriveSim.update(0.02);
+		System.out.println(leftMaster.getBusVoltage()); 
+		
 
 		// leftEncoderSim.setDistance(diffDriveSim.getLeftPositionMeters());
   		// leftEncoderSim.setRate(diffDriveSim.getLeftVelocityMetersPerSecond());
