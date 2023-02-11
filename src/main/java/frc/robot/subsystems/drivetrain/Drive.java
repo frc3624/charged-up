@@ -2,6 +2,7 @@ package frc.robot.subsystems.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.REVPhysicsSim;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -27,7 +28,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 	//protected final SparkMaxAlternateEncoder leftEncoder = new SparkMaxAlternateEncoder(leftMaster,MotorType.kBrushless, 4096);
-
+	//leftEncoder = leftMaster.getEncoder();
+	//rightEncoder = rightMaster.getEncoder();
 	private final AHRS ahrs = new AHRS();
 	
 	//protected EncoderSim leftEncoderSim = new EncoderSim();
@@ -63,6 +65,17 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		rightMaster.setIdleMode(IdleMode.kBrake);
 		leftSlave.setIdleMode(IdleMode.kBrake);
 		rightSlave.setIdleMode(IdleMode.kBrake);
+		
+
+		//stuff for sim?
+		// leftEncoder.setPositionConversionFactor(WHEEL_CIRCUMFERENCE / GEAR_RATIO );
+    	// rightEncoder.setPositionConversionFactor(WHEEL_CIRCUMFERENCE / GEAR_RATIO);
+
+    	// leftEncoder.setVelocityConversionFactor(WHEEL_CIRCUMFERENCE * (1.0/60.0) / GEAR_RATIO);
+    	// rightEncoder.setVelocityConversionFactor(WHEEL_CIRCUMFERENCE * (1.0/60.0) / GEAR_RATIO);
+		//Encoder leftEncoder = new Encoder(0, 1);
+		//leftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kEncoderResolution);
+
 	}
 
 	public void arcadeDrive(double speed, double rotation) {
@@ -73,7 +86,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		if (getAngle() >= 0.5) {
 			arcadeDrive(.6, 0);
 		} else if (getAngle() <= 0.5) {
-			arcadeDrive(.6, 0);
+			arcadeDrive(-.6, 0);
 		} else {
 			arcadeDrive(0, 0);
 		}
@@ -85,9 +98,11 @@ public class Drive extends SubsystemBase implements DriveSettings {
 
 	@Override
 	public void simulationPeriodic() {
+		
+ 	 	//rightEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kEncoderResolution);
 		diffDriveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(), rightMaster.get() * RobotController.getInputVoltage());
 		diffDriveSim.update(0.02);
-		System.out.println(leftMaster.getBusVoltage()); 
+		System.out.println(leftMaster.getAppliedOutput()); 
 		
 
 		// leftEncoderSim.setDistance(diffDriveSim.getLeftPositionMeters());
