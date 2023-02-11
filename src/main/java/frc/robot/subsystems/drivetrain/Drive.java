@@ -84,10 +84,10 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	}
 
 	public void balanceBot() {
-		if (getAngle() >= 0.5) {
-			arcadeDrive(.6, 0);
-		} else if (getAngle() <= 0.5) {
-			arcadeDrive(-.6, 0);
+		if (getAngle() >= 2) {
+			arcadeDrive(.3, 0);
+		} else if (getAngle() <= -2) {
+			arcadeDrive(-.3, 0);
 		} else {
 			arcadeDrive(0, 0);
 		}
@@ -103,7 +103,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
  	 	//rightEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kEncoderResolution);
 		diffDriveSim.setInputs(leftMaster.get() * RobotController.getInputVoltage(), rightMaster.get() * RobotController.getInputVoltage());
 		diffDriveSim.update(0.02);
-		System.out.println(leftMaster.getAppliedOutput()); 
+		//System.out.println(leftMaster.getAppliedOutput()); 
 		
 
 		// leftEncoderSim.setDistance(diffDriveSim.getLeftPositionMeters());
