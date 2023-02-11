@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivetrain;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.REVPhysicsSim;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -28,8 +29,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 	//protected final SparkMaxAlternateEncoder leftEncoder = new SparkMaxAlternateEncoder(leftMaster,MotorType.kBrushless, 4096);
-	//leftEncoder = leftMaster.getEncoder();
-	//rightEncoder = rightMaster.getEncoder();
+	RelativeEncoder leftEncoder = leftMaster.getEncoder();
+	RelativeEncoder rightEncoder = rightMaster.getEncoder();
 	private final AHRS ahrs = new AHRS();
 	
 	//protected EncoderSim leftEncoderSim = new EncoderSim();
@@ -68,11 +69,11 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		
 
 		//stuff for sim?
-		// leftEncoder.setPositionConversionFactor(WHEEL_CIRCUMFERENCE / GEAR_RATIO );
-    	// rightEncoder.setPositionConversionFactor(WHEEL_CIRCUMFERENCE / GEAR_RATIO);
+		leftEncoder.setPositionConversionFactor(WHEEL_DIAMETER * Math.PI / GEAR_REDUCTION );
+		rightEncoder.setPositionConversionFactor(WHEEL_DIAMETER * Math.PI / GEAR_REDUCTION );
 
-    	// leftEncoder.setVelocityConversionFactor(WHEEL_CIRCUMFERENCE * (1.0/60.0) / GEAR_RATIO);
-    	// rightEncoder.setVelocityConversionFactor(WHEEL_CIRCUMFERENCE * (1.0/60.0) / GEAR_RATIO);
+		leftEncoder.setVelocityConversionFactor(WHEEL_DIAMETER * Math.PI / GEAR_REDUCTION * (1.0/60.0));
+		rightEncoder.setVelocityConversionFactor(WHEEL_DIAMETER * Math.PI / GEAR_REDUCTION * (1.0/60.0));
 		//Encoder leftEncoder = new Encoder(0, 1);
 		//leftEncoder.setDistancePerPulse(2 * Math.PI * kWheelRadius / kEncoderResolution);
 
