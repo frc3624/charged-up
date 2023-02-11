@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.hal.SimDouble;
+import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
@@ -144,5 +146,8 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	@Override
 	public void simulationPeriodic() {
 		REVPhysicsSim.getInstance().run();
+		int dev = SimDeviceDataJNI.getSimDeviceHandle("navX-Sensor[0]");
+		SimDouble angle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(dev, "Yaw"));
+		angle.set(5.0);
 	}
 }
