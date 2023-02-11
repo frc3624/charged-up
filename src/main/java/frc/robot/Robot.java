@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.GlobalSettings;
+import com.revrobotics.REVPhysicsSim;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -134,10 +136,13 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	/** This function is called once when the robot is first started up. */
 	@Override
 	public void simulationInit() {
+		REVPhysicsSim.getInstance().addSparkMax(m_robotContainer.pathDrive.getLeftMaster(), DCMotor.getNEO(1));
+		REVPhysicsSim.getInstance().addSparkMax(m_robotContainer.pathDrive.getRightMaster(), DCMotor.getNEO(1));
 	}
 
 	/** This function is called periodically whilst in simulation. */
 	@Override
 	public void simulationPeriodic() {
+		REVPhysicsSim.getInstance().run();
 	}
 }

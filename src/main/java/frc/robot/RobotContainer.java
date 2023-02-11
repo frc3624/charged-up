@@ -61,7 +61,7 @@ public class RobotContainer implements AutoSettings{
 
 	// Subsystems
 	// private final Drive drive = new Drive();
-	private final PathDrive pathDrive = new PathDrive();
+	public final PathDrive pathDrive = new PathDrive();
 	private final Dumper dump = new Dumper();
 	private final Trap trap = new Trap();
 	private final Limelight limelight = new Limelight();

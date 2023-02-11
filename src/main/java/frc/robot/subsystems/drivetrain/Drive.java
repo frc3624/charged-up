@@ -28,7 +28,6 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 	//protected final SparkMaxAlternateEncoder leftEncoder = new SparkMaxAlternateEncoder(leftMaster,MotorType.kBrushless, 4096);
 
-
 	private final AHRS ahrs = new AHRS();
 	
 	//protected EncoderSim leftEncoderSim = new EncoderSim();
@@ -98,5 +97,13 @@ public class Drive extends SubsystemBase implements DriveSettings {
   		// gyroSim.setAngle(-diffDriveSim.getHeading().getDegrees());
 
 		
+	}
+
+	public CANSparkMax getLeftMaster() {
+		return leftMaster;
+	}
+
+	public CANSparkMax getRightMaster() {
+		return rightMaster;
 	}
 }
