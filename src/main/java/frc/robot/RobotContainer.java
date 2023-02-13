@@ -68,6 +68,7 @@ public class RobotContainer implements GlobalSettings {
 		drive.setDefaultCommand(driveTrain);
 		// fan.setDefaultCommand(cooler);
 		xboxController.start();
+		compressor.enableDigital();
 	}
 
 	private void configureButtonBindings() {
