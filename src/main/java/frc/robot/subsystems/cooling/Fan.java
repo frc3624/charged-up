@@ -18,7 +18,10 @@ public class Fan extends SubsystemBase {
 	public Fan() {
 		fan.set(false);
 	}
-
+	/**
+	 * @param compressor
+	 *            Runs fan when compressor is running and 60 seconds after
+	 */
 	public void coolingRoutine(Compressor compressor) {
 		boolean wasOn = false;
 		System.out.println(compressor.isEnabled());

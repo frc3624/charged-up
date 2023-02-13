@@ -5,8 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -31,7 +29,6 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	// NetworkTableInstance.getDefault().getTable("pneumatics");
 	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
 	private final GenericEntry pressure = tab.add("Pressure", ph.getPressure(PCM_ID)).getEntry();
-
 
 	/**
 	 * This function is run when the robot is first started up and should be used
