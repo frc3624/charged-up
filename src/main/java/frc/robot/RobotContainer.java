@@ -8,6 +8,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.CvSink;
 import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -38,12 +40,13 @@ public class RobotContainer implements GlobalSettings {
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
 
 	// Single instance of Compressor, easy access
-
+	Compressor compressor = new Compressor(PCM_ID, PneumaticsModuleType.REVPH);
 	// Subsystems
 	private final Drive drive = new Drive();
 	private final Dumper dump = new Dumper();
 	private final Trap trap = new Trap();
 	private final Limelight limelight = new Limelight();
+	// private final Fan fan = new Fan();
 
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
@@ -52,6 +55,7 @@ public class RobotContainer implements GlobalSettings {
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final DrivePosition drivePosition = new DrivePosition(limelight);
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
+	// private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -62,6 +66,7 @@ public class RobotContainer implements GlobalSettings {
 		// Configure the trigger bindings
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
+		// fan.setDefaultCommand(cooler);
 		xboxController.start();
 	}
 
