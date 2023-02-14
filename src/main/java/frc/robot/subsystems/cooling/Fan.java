@@ -15,6 +15,7 @@ import static frc.robot.Constants.PistonSettings.*;
 public class Fan extends SubsystemBase {
 	/** Creates a new Cooling. */
 	private final Solenoid fan = new Solenoid(PneumaticsModuleType.REVPH, FAN);
+	boolean wasOn = false;
 	public Fan() {
 		fan.set(false);
 	}
@@ -23,15 +24,14 @@ public class Fan extends SubsystemBase {
 	 *            Runs fan when compressor is running and 60 seconds after
 	 */
 	public void coolingRoutine(Compressor compressor) {
-		boolean wasOn = false;
 		double current = compressor.getCurrent();
 		System.out.println(compressor.getCurrent());
 		if (current > 15) {
-			fan.set(true);
+			fan.toggle();;
 			wasOn = true;
 		} else if (wasOn) {
 			Timer.delay(60);
-			fan.set(false);
+			fan.toggle();
 			wasOn = false;
 		} else {
 			fan.set(false);
