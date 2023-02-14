@@ -22,12 +22,14 @@ public class CoolCompressor extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		compressor.enableDigital();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		fan.coolingRoutine(compressor);
+		System.out.println(fan.isEnabled());
 	}
 
 	// Called once the command ends or is interrupted.
