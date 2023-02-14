@@ -68,9 +68,9 @@ public class RobotContainer implements GlobalSettings {
 		// Configure the trigger bindings
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		fan.setDefaultCommand(cooler);
-		xboxController.start();
 		compressor.enableDigital();
+		fan.setDefaultCommand(cooler);
+		fan.coolingRoutine(compressor);
 	}
 
 	private void configureButtonBindings() {
