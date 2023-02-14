@@ -24,8 +24,9 @@ public class Fan extends SubsystemBase {
 	 */
 	public void coolingRoutine(Compressor compressor) {
 		boolean wasOn = false;
-		System.out.println(compressor.isEnabled());
-		if (compressor.isEnabled()) {
+		double current = compressor.getCurrent();
+		System.out.println(compressor.getCurrent());
+		if (current > 15) {
 			fan.set(true);
 			wasOn = true;
 		} else if (wasOn) {

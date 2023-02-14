@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GlobalSettings;
 import frc.robot.commands.Autos;
+import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
 import frc.robot.commands.dumpy.ShiftDump;
@@ -22,6 +23,7 @@ import frc.robot.commands.dumpy.ShiftTrap;
 import frc.robot.commands.limelight.DrivePosition;
 import frc.robot.commands.limelight.IntakePosition;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.cooling.Fan;
 import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
 import frc.robot.subsystems.dumpy.Trap;
@@ -40,13 +42,13 @@ public class RobotContainer implements GlobalSettings {
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
 
 	// Single instance of Compressor, easy access
-	Compressor compressor = new Compressor(PCM_ID, PneumaticsModuleType.REVPH);
+	Compressor compressor = new Compressor(PneumaticsModuleType.REVPH);
 	// Subsystems
 	private final Drive drive = new Drive();
 	private final Dumper dump = new Dumper();
 	private final Trap trap = new Trap();
 	private final Limelight limelight = new Limelight();
-	// private final Fan fan = new Fan();
+	private final Fan fan = new Fan();
 
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
@@ -55,7 +57,7 @@ public class RobotContainer implements GlobalSettings {
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final DrivePosition drivePosition = new DrivePosition(limelight);
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
-	// private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
+	private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -66,7 +68,7 @@ public class RobotContainer implements GlobalSettings {
 		// Configure the trigger bindings
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
-		// fan.setDefaultCommand(cooler);
+		fan.setDefaultCommand(cooler);
 		xboxController.start();
 		compressor.enableDigital();
 	}
@@ -77,6 +79,7 @@ public class RobotContainer implements GlobalSettings {
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
 		balanceButton.whileTrue(leveler);
+
 	}
 
 	/**
