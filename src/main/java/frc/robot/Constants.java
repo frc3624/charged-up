@@ -24,7 +24,7 @@ public final class Constants {
 	}
 
 	public interface DriveSettings {
-		public final int LEFT_MASTER = 1, LEFT_SLAVE = 2, RIGHT_MASTER = 3, RIGHT_SLAVE = 4;
+		public final int LEFT_MASTER = 1, LEFT_FOLLOW = 2, RIGHT_MASTER = 3, RIGHT_FOLLOW = 4;
 
 		// MUST UPDATE THESE WITH SYSID
 		public final double kV = 0.0, kA = 0.0, kVAngular = 0.0, kAAngular = 0.0;

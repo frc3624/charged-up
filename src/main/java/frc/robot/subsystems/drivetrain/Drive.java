@@ -14,9 +14,9 @@ import frc.robot.Constants.DriveSettings;
 public class Drive extends SubsystemBase implements DriveSettings {
 
 	private final CANSparkMax leftMaster = new CANSparkMax(LEFT_MASTER, MotorType.kBrushless);
-	private final CANSparkMax leftFollow = new CANSparkMax(LEFT_SLAVE, MotorType.kBrushless);
+	private final CANSparkMax leftFollow = new CANSparkMax(LEFT_FOLLOW, MotorType.kBrushless);
 	private final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
-	private final CANSparkMax rightFollow = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
+	private final CANSparkMax rightFollow = new CANSparkMax(RIGHT_FOLLOW, MotorType.kBrushless);
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
 	private final AHRS ahrs = new AHRS();
