@@ -5,42 +5,38 @@
 package frc.robot.subsystems.cooling;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import static frc.robot.Constants.PistonSettings.*;
 
 public class Fan extends SubsystemBase {
 	/** Creates a new Cooling. */
-	private final Solenoid fan = new Solenoid(PneumaticsModuleType.REVPH, FAN);
+	// private final Solenoid fan = new Solenoid(PneumaticsModuleType.REVPH, FAN);
+	protected final PWMVictorSPX fan = new PWMVictorSPX(8);
 	protected boolean wasOn = false;
 	public Fan() {
-		fan.set(false);
+		// fan.set(1);
 	}
 	/**
 	 * @param compressor
 	 *            Runs fan when compressor is running and 60 seconds after
 	 */
 	public void coolingRoutine(Compressor compressor) {
-		double current = compressor.getCurrent();
-		System.out.println(compressor.getCurrent());
-		if (current > 15 || compressor.isEnabled()) {
+		if (compressor.isEnabled()) {
 			// turns it on
-			fan.toggle();
+			fan.set(1);
 			wasOn = true;
 		} else if (wasOn) {
-			Timer.delay(60);
+			Timer.delay(15);
 			// turns it off
-			fan.toggle();
+			fan.set(1);
 			wasOn = false;
 		} else {
-			fan.set(false);
+			fan.set(0);
 		}
 	}
 	public boolean isEnabled() {
-		return fan.get();
+		return true;
 	}
 	@Override
 	public void periodic() {

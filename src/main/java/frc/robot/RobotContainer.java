@@ -42,7 +42,7 @@ public class RobotContainer implements GlobalSettings {
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
 
 	// Single instance of Compressor, easy access
-	Compressor compressor = new Compressor(PneumaticsModuleType.REVPH);
+	Compressor compressor = new Compressor(PCM_ID, PneumaticsModuleType.REVPH);
 	// Subsystems
 	private final Drive drive = new Drive();
 	private final Dumper dump = new Dumper();

@@ -11,6 +11,7 @@ import frc.robot.subsystems.cooling.Fan;
 public class CoolCompressor extends CommandBase {
 	private final Fan fan;
 	private final Compressor compressor;
+	// final PneumaticHub hub;
 	/** Class used for fan routine */
 	public CoolCompressor(Fan fan, Compressor compressor) {
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -22,7 +23,8 @@ public class CoolCompressor extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		compressor.enableDigital();
+		// hub.enableCompressorDigital();
+		// fan.coolingRoutine(compressor);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
