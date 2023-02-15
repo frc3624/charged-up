@@ -24,9 +24,9 @@ import frc.robot.Constants.DriveSettings;
 public class Drive extends SubsystemBase implements DriveSettings {
 
 	protected final CANSparkMax leftMaster = new CANSparkMax(LEFT_MASTER, MotorType.kBrushless);
-	protected final CANSparkMax leftSlave = new CANSparkMax(LEFT_SLAVE, MotorType.kBrushless);
+	protected final CANSparkMax leftFollow = new CANSparkMax(LEFT_FOLLOW, MotorType.kBrushless);
 	protected final CANSparkMax rightMaster = new CANSparkMax(RIGHT_MASTER, MotorType.kBrushless);
-	protected final CANSparkMax rightSlave = new CANSparkMax(RIGHT_SLAVE, MotorType.kBrushless);
+	protected final CANSparkMax rightFollow = new CANSparkMax(RIGHT_FOLLOW, MotorType.kBrushless);
 	protected final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 	//protected final SparkMaxAlternateEncoder leftEncoder = new SparkMaxAlternateEncoder(leftMaster,MotorType.kBrushless, 4096);
 	RelativeEncoder leftEncoder = leftMaster.getEncoder();
@@ -59,13 +59,13 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	}
 
 	private void configureMotors() {
-		rightSlave.follow(rightMaster);
-		leftSlave.follow(leftMaster);
+		rightFollow.follow(rightMaster);
+		leftFollow.follow(leftMaster);
 
 		leftMaster.setIdleMode(IdleMode.kBrake);
 		rightMaster.setIdleMode(IdleMode.kBrake);
-		leftSlave.setIdleMode(IdleMode.kBrake);
-		rightSlave.setIdleMode(IdleMode.kBrake);
+		leftFollow.setIdleMode(IdleMode.kBrake);
+		rightFollow.setIdleMode(IdleMode.kBrake);
 		
 
 		//stuff for sim?
