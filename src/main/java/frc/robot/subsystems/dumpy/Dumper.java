@@ -12,6 +12,10 @@ import frc.robot.Constants.PistonSettings;
 public class Dumper extends SubsystemBase implements PistonSettings {
 
 	private final Solenoid piston = new Solenoid(PCM_ID, PneumaticsModuleType.REVPH, DUMP);
+	/**
+	 * Subsystem for dumptruck portion of the robot Includes method to dump the
+	 * dumptruck
+	 */
 	public Dumper() {
 		piston.set(false);
 	}

@@ -9,6 +9,10 @@ import frc.robot.subsystems.dumpy.Dumper;
 
 public class ShiftDump extends CommandBase {
 	private final Dumper dumpy;
+	/**
+	 * @param dumpy
+	 *            Command used to lift and drop the dumper
+	 */
 	public ShiftDump(Dumper dumpy) {
 		this.dumpy = dumpy;
 		addRequirements(dumpy);

@@ -35,7 +35,7 @@ public final class Constants {
 
 	public interface PistonSettings extends GlobalSettings {
 		public final boolean DEFAULT_PISTON_STATE = false;
-		public final int DUMP = 0, TRAP = 1, FAN = 2;
+		public final int DUMP = 0, TRAP = 1, FAN = 8;
 	}
 
 	public interface LimelightSettings {

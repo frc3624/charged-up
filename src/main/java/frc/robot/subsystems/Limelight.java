@@ -14,7 +14,10 @@ public class Limelight extends SubsystemBase implements LimelightSettings {
 
 	private final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 	private final Servo servo = new Servo(SERVO);
-
+	/**
+	 * Contains preset intake angle and drive angle. Also contains accessor method
+	 * for said angles.
+	 */
 	public enum LimelightAngle {
 		INTAKE_ANGLE(35), DRIVE_ANGLE(5);
 
@@ -28,7 +31,10 @@ public class Limelight extends SubsystemBase implements LimelightSettings {
 			return angle;
 		}
 	}
-
+	/**
+	 * Contains present settings for the Limelight LED. Also contains accessor
+	 * method for the current limelight setting
+	 */
 	public enum LedMode {
 		CURRENT(0), OFF(1), BLINK(2), ON(3);
 
@@ -42,11 +48,15 @@ public class Limelight extends SubsystemBase implements LimelightSettings {
 			return value;
 		}
 	}
-
+	/**
+	 * Sets the LED Mode of the Limelight
+	 */
 	public void setLedMode(LedMode ledMode) {
 		table.getEntry("ledMode").setNumber(ledMode.getValue());
 	}
-
+	/**
+	 * Sets the position of the limelight
+	 */
 	public void setPosition(LimelightAngle angle) {
 		servo.setAngle(angle.getAngle());
 	}

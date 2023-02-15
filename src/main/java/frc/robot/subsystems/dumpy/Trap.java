@@ -12,7 +12,10 @@ import frc.robot.Constants.PistonSettings;
 public class Trap extends SubsystemBase implements PistonSettings {
 
 	private final Solenoid piston = new Solenoid(PCM_ID, PneumaticsModuleType.REVPH, TRAP);
-
+	/**
+	 * Subsystem for trapdoor portion of the robot Includes method to release the
+	 * trapdoor
+	 */
 	public Trap() {
 		piston.set(false);
 	}

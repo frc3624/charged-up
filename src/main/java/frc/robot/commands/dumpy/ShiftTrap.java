@@ -9,6 +9,10 @@ import frc.robot.subsystems.dumpy.Trap;
 
 public class ShiftTrap extends CommandBase {
 	private final Trap trap;
+	/**
+	 * @param trap
+	 *            Command used to open and close trap door.
+	 */
 	public ShiftTrap(Trap trap) {
 		this.trap = trap;
 		addRequirements(trap);

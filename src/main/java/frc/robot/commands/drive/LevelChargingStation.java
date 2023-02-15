@@ -9,6 +9,10 @@ import frc.robot.subsystems.drivetrain.Drive;
 
 public class LevelChargingStation extends CommandBase {
 	private final Drive drive;
+	/**
+	 * @param drive
+	 *            Command used to balance the robot.
+	 */
 	public LevelChargingStation(Drive drive) {
 		this.drive = drive;
 		addRequirements(drive);
@@ -17,10 +21,5 @@ public class LevelChargingStation extends CommandBase {
 	@Override
 	public void initialize() {
 		drive.balanceBot();
-	}
-
-	@Override
-	public void execute() {
-
 	}
 }

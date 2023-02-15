@@ -10,7 +10,10 @@ import frc.robot.subsystems.Limelight.LimelightAngle;
 
 public class DrivePosition extends CommandBase {
 	private final Limelight limelight;
-
+	/**
+	 * @param limelight
+	 *            Command used to put servo mount in the driving position
+	 */
 	public DrivePosition(Limelight limelight) {
 		this.limelight = limelight;
 	}

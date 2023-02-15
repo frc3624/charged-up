@@ -11,7 +11,11 @@ import frc.robot.subsystems.drivetrain.Drive;
 public class DriveTrain extends CommandBase {
 	private Drive drive;
 	private CommandXboxController xboxController;
-
+	/**
+	 * @param drive
+	 * @param xboxController
+	 *            Command used to drive the robot with an xbox controller.
+	 */
 	public DriveTrain(Drive drive, CommandXboxController xboxController) {
 		this.drive = drive;
 		this.xboxController = xboxController;

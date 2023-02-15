@@ -9,13 +9,16 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.Constants.PistonSettings.*;
 public class Fan extends SubsystemBase {
-	/** Creates a new Cooling. */
-	// private final Solenoid fan = new Solenoid(PneumaticsModuleType.REVPH, FAN);
-	protected final PWMVictorSPX fan = new PWMVictorSPX(8);
+	protected final PWMVictorSPX fan = new PWMVictorSPX(FAN);
 	protected boolean wasOn = false;
+	/**
+	 * {@summary} Constructor for Fan Object. Fan uses PWMVictorSPX motor controller
+	 * to run. Fan speed initially set to 0.
+	 */
 	public Fan() {
-		// fan.set(1);
+		fan.set(0);
 	}
 	/**
 	 * @param compressor
@@ -27,19 +30,18 @@ public class Fan extends SubsystemBase {
 			fan.set(1);
 			wasOn = true;
 		} else if (wasOn) {
-			Timer.delay(15);
+			Timer.delay(10);
 			// turns it off
-			fan.set(1);
+			fan.set(0);
 			wasOn = false;
 		} else {
 			fan.set(0);
 		}
 	}
+	/**
+	 * @return Returns the current state of the fan
+	 */
 	public boolean isEnabled() {
-		return true;
-	}
-	@Override
-	public void periodic() {
-		// This method will be called once per scheduler run
+		return (fan.get() > -1);
 	}
 }
