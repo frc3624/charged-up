@@ -1,20 +1,8 @@
 {
   "HALProvider": {
-    "Other Devices": {
-      "SPARK MAX [2]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [3]": {
-        "header": {
-          "open": true
-        }
-      },
-      "navX-Sensor[0]": {
-        "header": {
-          "open": true
-        }
+    "PWM Outputs": {
+      "window": {
+        "visible": true
       }
     },
     "RoboRIO": {
@@ -51,9 +39,6 @@
     }
   },
   "NetworkTables Info": {
-    "Clients": {
-      "open": true
-    },
     "Connections": {
       "open": true
     },

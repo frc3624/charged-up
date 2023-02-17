@@ -46,6 +46,11 @@ public final class Constants {
 		public static final double kRamseteB = 2;
 		public static final double kRamseteZeta = 0.7;
 		public static final double kEncoderDistancePerTick = 0.00992857142;
+		public static final double RED_1X = 0, RED_2X = 1.5, RED_3X = 3.0;
+		public static final double RED_1Y = 0, RED_2Y = 1.5, RED_3Y = 3.0;
+		public static final double BLUE_1X = 0, BLUE_2X = 1.5, BLUE_3X = 3.0;
+		public static final double BLUE_1Y = 0, BLUE_2Y = 1.5, BLUE_3Y = 3.0;
+
 	}
 
 	public interface DriveSettings extends AutoSettings {
