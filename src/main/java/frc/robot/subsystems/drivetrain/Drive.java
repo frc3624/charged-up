@@ -42,7 +42,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	}
 
 	public double getAngle() {
-		return ahrs.getAngle();
+		return ahrs.getPitch();
 	}
 
 	private void configureMotors() {
@@ -60,10 +60,11 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	}
 
 	public void balanceBot() {
+		// System.out.println(getAngle());
 		if (getAngle() >= 0.5) {
-			arcadeDrive(.6, 0);
-		} else if (getAngle() <= 0.5) {
-			arcadeDrive(.6, 0);
+			arcadeDrive(0, .6);
+		} else if (getAngle() <= -0.5) {
+			arcadeDrive(0, -.6);
 		} else {
 			arcadeDrive(0, 0);
 		}

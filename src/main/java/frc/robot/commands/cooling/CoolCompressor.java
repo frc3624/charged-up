@@ -26,6 +26,5 @@ public class CoolCompressor extends CommandBase {
 	@Override
 	public void execute() {
 		fan.coolingRoutine(compressor);
-		System.out.println(fan.isEnabled());
 	}
 }

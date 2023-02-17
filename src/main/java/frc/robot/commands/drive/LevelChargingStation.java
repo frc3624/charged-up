@@ -19,7 +19,7 @@ public class LevelChargingStation extends CommandBase {
 	}
 
 	@Override
-	public void initialize() {
+	public void execute() {
 		drive.balanceBot();
 	}
 }
