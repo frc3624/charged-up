@@ -60,7 +60,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	}
 
 	public void balanceBot() {
-		// System.out.println(getAngle());
+		System.out.println(getAngle());
 		if (getAngle() >= 0.5) {
 			arcadeDrive(0, .6);
 		} else if (getAngle() <= -0.5) {
