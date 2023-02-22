@@ -143,6 +143,7 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	}
 
 	/** This function is called periodically whilst in simulation. */
+	/* 
 	@Override
 	public void simulationPeriodic() {
 		REVPhysicsSim.getInstance().run();
@@ -150,4 +151,5 @@ public class Robot extends TimedRobot implements GlobalSettings {
 		SimDouble angle = new SimDouble(SimDeviceDataJNI.getSimValueHandle(dev, "Yaw"));
 		angle.set(5.0);
 	}
+	*/
 }
