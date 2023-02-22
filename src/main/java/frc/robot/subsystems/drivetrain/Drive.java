@@ -40,7 +40,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	RelativeEncoder rightEncoderActual = rightMaster.getEncoder();
 	private final AHRS ahrs = new AHRS();
 	//CHANGE BEFORE EVERY MATCH
-	Pose2d position = new Pose2d(BLUE_1X, PCM_ID, new Rotation2d());
+	Pose2d position = new Pose2d(BLUE_1X, BLUE_1Y, new Rotation2d());
 	/*CHANGE WHEN SOLUTION IS FOUND TO INDICATED PROBLEMS */
 	DifferentialDriveOdometry odometryActual = new DifferentialDriveOdometry
 										(/*gyro angle*/ahrs.getRotation2d(), 
@@ -130,9 +130,9 @@ public class Drive extends SubsystemBase implements DriveSettings {
 
 	public void periodic() {
 		field.setRobotPose(diffDriveSim.getPose());
-		odometryActual.update(ahrs.getRotation2d(),
-							leftEncoderActual.getPosition() * leftEncoderActual.getPositionConversionFactor(),
-							rightEncoderActual.getPosition() * rightEncoderActual.getPositionConversionFactor());
+		// odometryActual.update(ahrs.getRotation2d(),
+		// 					leftEncoderActual.getPosition() * leftEncoderActual.getPositionConversionFactor(),
+		// 					rightEncoderActual.getPosition() * rightEncoderActual.getPositionConversionFactor());
 
 		// odometryFake.update(gyro.getRotation2d(),
 		// 				leftEncoder.getDistance(),
