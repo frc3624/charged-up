@@ -55,8 +55,8 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		rightFollow.setIdleMode(IdleMode.kBrake);
 	}
 
-	public void arcadeDrive(double speed, double rotation) {
-		differentialDrive.arcadeDrive(speed, rotation);
+	public void arcadeDrive(double rotation, double speed) {
+		differentialDrive.arcadeDrive(rotation, speed);
 	}
 
 	public void balanceBot() {

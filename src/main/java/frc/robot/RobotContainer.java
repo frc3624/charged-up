@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GlobalSettings;
 import frc.robot.commands.Autos;
+import frc.robot.commands.auto.AutoRoutine;
 import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
@@ -89,6 +90,7 @@ public class RobotContainer implements GlobalSettings {
 	 */
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
-		return Autos.exampleAuto(drive);
+		return new AutoRoutine(drive);
+		// return Autos.exampleAuto(drive);
 	}
 }
