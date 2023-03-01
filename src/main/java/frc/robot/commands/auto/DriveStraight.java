@@ -16,6 +16,7 @@ public class DriveStraight extends CommandBase {
   /** Creates a new DriveStraight. */
   public DriveStraight(Drive drive, double time, double speed) {
     addRequirements(drive);
+    this.drive = drive;
     this.time = time;
     this.speed = speed;
     timer.start();
@@ -29,7 +30,8 @@ public class DriveStraight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() > time)
+    System.out.println(timer.get());
+    if(timer.get() < time)
       drive.arcadeDrive(0, speed);
   }
 
@@ -37,6 +39,7 @@ public class DriveStraight extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.arcadeDrive(0, 0);
+    //timer.stop();
   }
 
   // Returns true when the command should end.

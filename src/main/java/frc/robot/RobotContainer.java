@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GlobalSettings;
 import frc.robot.commands.Autos;
 import frc.robot.commands.auto.AutoRoutine;
+import frc.robot.commands.auto.DriveStraight;
+import frc.robot.commands.auto.TurnRobot;
 import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.drive.LevelChargingStation;
@@ -60,6 +62,13 @@ public class RobotContainer implements GlobalSettings {
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
 	private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
 
+
+
+	//Autos
+	DriveStraight straight1 = new DriveStraight(drive, 5, .6);
+	TurnRobot turn = new TurnRobot(drive, 1, 1);
+	DriveStraight straight2 = new DriveStraight(drive, 3, .5);
+
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
 	/**
@@ -71,7 +80,7 @@ public class RobotContainer implements GlobalSettings {
 		drive.setDefaultCommand(driveTrain);
 		compressor.enableDigital();
 		fan.setDefaultCommand(cooler);
-		fan.coolingRoutine(compressor);
+		//fan.coolingRoutine(compressor);
 	}
 
 	private void configureButtonBindings() {
@@ -90,7 +99,8 @@ public class RobotContainer implements GlobalSettings {
 	 */
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
-		return new AutoRoutine(drive);
+		return new AutoRoutine(drive,straight1,straight2,turn);
+		//return straight1.andThen(turn.andThen(straight2));
 		// return Autos.exampleAuto(drive);
 	}
 }

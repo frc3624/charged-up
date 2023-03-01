@@ -16,6 +16,7 @@ public class TurnRobot extends CommandBase {
   /** Creates a new DriveStraight. */
   public TurnRobot(Drive drive, double time, double rotation) {
     addRequirements(drive);
+    this.drive = drive;
     this.time = time;
     this.rotation = rotation;
     timer.start();
@@ -29,7 +30,8 @@ public class TurnRobot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(timer.get() > time)
+    System.out.println(timer.get());
+    if(timer.get() < time)
       drive.arcadeDrive(rotation, 0);
   }
 
@@ -37,6 +39,7 @@ public class TurnRobot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     drive.arcadeDrive(0, 0);
+    timer.stop();
   }
 
   // Returns true when the command should end.

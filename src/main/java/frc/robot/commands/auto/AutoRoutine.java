@@ -12,11 +12,19 @@ import frc.robot.subsystems.drivetrain.Drive;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoRoutine extends SequentialCommandGroup {
   /** Creates a new AutoRoutine. */
-  public AutoRoutine(Drive drive) {
+  private Drive drive;
+  private DriveStraight str1;
+  private TurnRobot turn;
+  private DriveStraight str2;
+  public AutoRoutine(Drive drive,DriveStraight str1, DriveStraight str2, TurnRobot turn) {
+    this.drive = drive;
+    this.str1 = str1;
+    this.str2 = str2;
+    this.turn = turn;
+    //str1.andThen(turn.andThen(str2));
     addCommands(
-      new DriveStraight(drive, 5, .6),
-      new TurnRobot(drive, 1, .1),
-      new DriveStraight(drive, 3, .5)
+      str1.andThen(turn).andThen(str2)
     );
   }
+  
 }
