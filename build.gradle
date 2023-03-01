@@ -99,48 +99,48 @@ tasks.withType(JavaCompile) {
 	options.compilerArgs.add '-XDstringConcat=inline'
 }
 
-// spotless {
-// 	java {
-// 		target fileTree('.') {
-// 			include '**/*.java'
-// 			exclude '**/build/**', '**/build-*/**'
-// 		}
-// 		toggleOffOn()
-// 		eclipse()
-// 		removeUnusedImports()
-// 		trimTrailingWhitespace()
-// 		endWithNewline()
-// 	}
-// 	groovyGradle {
-// 		target fileTree('.') {
-// 			include '**/*.gradle'
-// 			exclude '**/build/**', '**/build-*/**'
-// 		}
-// 		greclipse()
-// 		indentWithTabs()
-// 		trimTrailingWhitespace()
-// 		endWithNewline()
-// 	}
-// 	format 'xml', {
-// 		target fileTree('.') {
-// 			include '**/*.xml'
-// 			exclude '**/build/**', '**/build-*/**'
-// 		}
-// 		eclipseWtp('xml')
-// 		trimTrailingWhitespace()
-// 		indentWithTabs()
-// 		endWithNewline()
-// 	}
-// 	format 'misc', {
-// 		target fileTree('.') {
-// 			include '**/*.md', '**/.gitignore'
-// 			exclude '**/build/**', '**/build-*/**'
-// 		}
-// 		trimTrailingWhitespace()
-// 		indentWithTabs()
-// 		endWithNewline()
-// 	}
-// }
+spotless {
+	java {
+		target fileTree('.') {
+			include '**/*.java'
+			exclude '**/build/**', '**/build-*/**'
+		}
+		toggleOffOn()
+		eclipse()
+		removeUnusedImports()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+	groovyGradle {
+		target fileTree('.') {
+			include '**/*.gradle'
+			exclude '**/build/**', '**/build-*/**'
+		}
+		greclipse()
+		indentWithTabs()
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
+	format 'xml', {
+		target fileTree('.') {
+			include '**/*.xml'
+			exclude '**/build/**', '**/build-*/**'
+		}
+		eclipseWtp('xml')
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+	format 'misc', {
+		target fileTree('.') {
+			include '**/*.md', '**/.gitignore'
+			exclude '**/build/**', '**/build-*/**'
+		}
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+}
 
 tasks.register('updateGitHooks', Copy) {
 	from './scripts/pre-commit'
