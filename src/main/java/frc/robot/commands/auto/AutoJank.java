@@ -8,39 +8,39 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drive;
 
-public class TurnRobot extends CommandBase {
+public class AutoJank extends CommandBase {
 	private Drive drive;
-	private final Timer timer = new Timer();
-	private double time;
-	private double rotation;
-	/** Creates a new DriveStraight. */
-	public TurnRobot(Drive drive, double time, double rotation) {
-		addRequirements(drive);
-		this.drive = drive;
-		this.time = time;
-		this.rotation = rotation;
-		timer.start();
+	private Timer timer = new Timer();
+	/** Creates a new AutoJank. */
+	public AutoJank(Drive drive) {
 		// Use addRequirements() here to declare subsystem dependencies.
+		this.drive = drive;
+		addRequirements(drive);
+		timer.start();
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		// System.out.println(timer.get());
-		if (timer.get() < time)
-			drive.arcadeDrive(rotation, 0);
+		if (timer.get() < 5)
+			drive.arcadeDrive(0, .5);
+		else if (timer.get() < 10)
+			drive.arcadeDrive(.4, 0);
+		else if (timer.get() < 15)
+			drive.arcadeDrive(0, .3);
+		else
+			drive.arcadeDrive(0, 0);
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		// drive.arcadeDrive(0, 0);
-		// timer.stop();
 	}
 
 	// Returns true when the command should end.

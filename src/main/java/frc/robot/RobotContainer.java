@@ -14,9 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GlobalSettings;
-import frc.robot.commands.auto.AutoRoutine;
-import frc.robot.commands.auto.DriveStraight;
-import frc.robot.commands.auto.TurnRobot;
+import frc.robot.commands.auto.AutoJank;
 import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.dumpy.ShiftDump;
@@ -34,7 +32,7 @@ public class RobotContainer implements GlobalSettings {
 	protected static final CommandXboxController xboxController = new CommandXboxController(XBOX_ID);
 	private final Trigger dumpButton = xboxController.y();
 	private final Trigger trapButton = xboxController.x();
-	private final Trigger balanceButton = xboxController.a();
+	// private final Trigger balanceButton = xboxController.a();
 	private final Trigger intakeViewButton = xboxController.povUp();
 	private final Trigger driveViewButton = xboxController.povDown();
 
@@ -61,9 +59,10 @@ public class RobotContainer implements GlobalSettings {
 	private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
 
 	// Autos
-	DriveStraight straight1 = new DriveStraight(drive, 5, .6);
-	TurnRobot turn = new TurnRobot(drive, 1, 1);
-	DriveStraight straight2 = new DriveStraight(drive, 3, .5);
+	// DriveStraight straight1 = new DriveStraight(drive, 5, .6);
+	// TurnRobot turn = new TurnRobot(drive, 1, 0);
+	// DriveStraight straight2 = new DriveStraight(drive, 3, .5);
+	// AutoJank autoRoutine = new AutoJank(drive);
 
 	// Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -95,7 +94,9 @@ public class RobotContainer implements GlobalSettings {
 	 */
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
-		return new AutoRoutine(drive, straight1, straight2, turn);
+		// return new AutoRoutine(drive, straight2, straight1, turn);
+		return new AutoJank(drive);
+		// return straight1.andThen(turn.andThen(straight2));
 		// return straight1.andThen(turn.andThen(straight2));
 		// return Autos.exampleAuto(drive);
 	}

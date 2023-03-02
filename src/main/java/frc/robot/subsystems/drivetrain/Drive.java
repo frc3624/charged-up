@@ -63,18 +63,9 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	public DifferentialDrive getDiffDrive() {
 		return differentialDrive;
 	}
-	public void balanceBot() {
-		System.out.println(getAngle());
-		while (getAngle() >= 3 || getAngle() <= -3) {
-			if (getAngle() >= 10) {
-				arcadeDrive(0, -.2);
-			} else if (getAngle() <= -10) {
-				arcadeDrive(0, .2);
-			} else {
-				arcadeDrive(0, 0);
-			}
-		}
-	}
+	// public void balanceBot() {
+
+	// }
 
 	public void periodic() {
 		// field.setRobotPose(diffDriveSim.getPose());

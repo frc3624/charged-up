@@ -31,7 +31,7 @@ public class DriveStraight extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		System.out.println(timer.get());
+		// System.out.println(timer.get());
 		if (timer.get() < time)
 			drive.arcadeDrive(0, speed);
 	}
@@ -39,7 +39,7 @@ public class DriveStraight extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		drive.arcadeDrive(0, 0);
+		// drive.arcadeDrive(0, 0);
 		// timer.stop();
 	}
 
