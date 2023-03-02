@@ -19,7 +19,6 @@ import frc.robot.commands.auto.DriveStraight;
 import frc.robot.commands.auto.TurnRobot;
 import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
-import frc.robot.commands.drive.LevelChargingStation;
 import frc.robot.commands.dumpy.ShiftDump;
 import frc.robot.commands.dumpy.ShiftTrap;
 import frc.robot.commands.limelight.DrivePosition;
@@ -54,7 +53,7 @@ public class RobotContainer implements GlobalSettings {
 
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
-	private final LevelChargingStation leveler = new LevelChargingStation(drive);
+	// private final LevelChargingStation leveler = new LevelChargingStation(drive);
 	private final ShiftDump dumper = new ShiftDump(dump);
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final DrivePosition drivePosition = new DrivePosition(limelight);
@@ -85,7 +84,7 @@ public class RobotContainer implements GlobalSettings {
 		trapButton.whileTrue(trapper);
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
-		balanceButton.whileTrue(leveler);
+		// balanceButton.whileTrue(leveler);
 
 	}
 

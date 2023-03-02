@@ -22,7 +22,8 @@ public class AutoRoutine extends SequentialCommandGroup {
 		this.str2 = str2;
 		this.turn = turn;
 		// str1.andThen(turn.andThen(str2));
-		addCommands(str1.andThen(turn).andThen(str2));
+		// addCommands(str1,turn,str2);
+
 	}
 
 }

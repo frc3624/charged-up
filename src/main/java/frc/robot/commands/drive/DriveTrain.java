@@ -11,6 +11,7 @@ import frc.robot.subsystems.drivetrain.Drive;
 public class DriveTrain extends CommandBase {
 	private Drive drive;
 	private CommandXboxController xboxController;
+
 	/**
 	 * @param drive
 	 * @param xboxController
@@ -25,6 +26,8 @@ public class DriveTrain extends CommandBase {
 	@Override
 	public void execute() {
 		// drive.arcadeDrive(xboxController.getLeftY(), -xboxController.getRightX());
+
 		drive.arcadeDrive(xboxController.getRightX(), -xboxController.getLeftY());
+
 	}
 }
