@@ -1,6 +1,5 @@
 package frc.robot.subsystems.drivetrain;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -19,7 +18,7 @@ public class Drive extends SubsystemBase implements DriveSettings {
 	private final CANSparkMax rightFollow = new CANSparkMax(RIGHT_FOLLOW, MotorType.kBrushless);
 	private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
 
-	private final AHRS ahrs = new AHRS();
+	// private final AHRS ahrs = new AHRS();
 
 	private Field2d field = new Field2d();
 	// private DifferentialDrivetrainSim diffDriveSim = new
@@ -42,9 +41,9 @@ public class Drive extends SubsystemBase implements DriveSettings {
 		// differentialDrive.setExpiration(10);
 	}
 
-	public double getAngle() {
-		return ahrs.getPitch();
-	}
+	// public double getAngle() {
+	// return ahrs.getPitch();
+	// }
 
 	private void configureMotors() {
 		rightFollow.follow(rightMaster);
