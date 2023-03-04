@@ -5,7 +5,6 @@
 package frc.robot.subsystems.cooling;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -25,18 +24,7 @@ public class Fan extends SubsystemBase {
 	 *            Runs fan when compressor is running and 60 seconds after
 	 */
 	public void coolingRoutine(Compressor compressor) {
-		if (compressor.isEnabled()) {
-			// turns it on
-			fan.set(1);
-			wasOn = true;
-		} else if (wasOn) {
-			Timer.delay(10);
-			// turns it off
-			fan.set(0);
-			wasOn = false;
-		} else {
-			fan.set(0);
-		}
+		fan.set(1);
 	}
 	/**
 	 * @return Returns the current state of the fan

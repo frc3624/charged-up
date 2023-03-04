@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.GlobalSettings;
 import frc.robot.commands.auto.AutoJank;
-import frc.robot.commands.cooling.CoolCompressor;
 import frc.robot.commands.drive.DriveTrain;
 import frc.robot.commands.dumpy.ShiftDump;
 import frc.robot.commands.dumpy.ShiftTrap;
@@ -50,13 +49,13 @@ public class RobotContainer implements GlobalSettings {
 	private final Fan fan = new Fan();
 
 	// Commands
-	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController);
+	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController, fan, compressor);
 	// private final LevelChargingStation leveler = new LevelChargingStation(drive);
 	private final ShiftDump dumper = new ShiftDump(dump);
 	private final ShiftTrap trapper = new ShiftTrap(trap);
 	private final DrivePosition drivePosition = new DrivePosition(limelight);
 	private final IntakePosition intakePosition = new IntakePosition(limelight);
-	private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
+	// private final CoolCompressor cooler = new CoolCompressor(fan, compressor);
 
 	// Autos
 	// DriveStraight straight1 = new DriveStraight(drive, 5, .6);
@@ -74,7 +73,7 @@ public class RobotContainer implements GlobalSettings {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
 		compressor.enableDigital();
-		fan.setDefaultCommand(cooler);
+		// fan.setDefaultCommand(cooler);
 		// fan.coolingRoutine(compressor);
 	}
 
@@ -84,7 +83,6 @@ public class RobotContainer implements GlobalSettings {
 		intakeViewButton.whileTrue(intakePosition);
 		driveViewButton.whileTrue(drivePosition);
 		// balanceButton.whileTrue(leveler);
-
 	}
 
 	/**
