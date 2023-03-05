@@ -7,14 +7,19 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drive;
+import frc.robot.subsystems.dumpy.Dumper;
 
 public class AutoJank extends CommandBase {
 	private Drive drive;
 	private Timer timer = new Timer();
+	private Dumper dump = new Dumper();
+	private final double EPSILON = .00001;
 	/** Creates a new AutoJank. */
-	public AutoJank(Drive drive) {
+	public AutoJank(Drive drive, Dumper dump) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.drive = drive;
+		this.dump = dump;
+		addRequirements(dump);
 		addRequirements(drive);
 		timer.start();
 	}
@@ -28,12 +33,14 @@ public class AutoJank extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (timer.get() < 5)
-			drive.arcadeDrive(0, .5);
-		else if (timer.get() < 10)
-			drive.arcadeDrive(.4, 0);
-		else if (timer.get() < 15)
-			drive.arcadeDrive(0, .3);
+		if (timer.get() < 1) {
+			dump.dump();
+			Timer.delay(1);
+			dump.dump();
+		} else if (timer.get() < 3)
+			drive.arcadeDrive(0, -1);
+		else if (drive.getAngle() - 5 >= EPSILON)
+			drive.arcadeDrive(0, -.4);
 		else
 			drive.arcadeDrive(0, 0);
 	}

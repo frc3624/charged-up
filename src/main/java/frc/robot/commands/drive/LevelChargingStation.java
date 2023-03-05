@@ -22,4 +22,9 @@ public class LevelChargingStation extends CommandBase {
 	public void execute() {
 		// drive.balanceBot();
 	}
+
+	@Override
+	public void end(boolean interrupted) {
+		drive.arcadeDrive(0, 0);
+	}
 }
