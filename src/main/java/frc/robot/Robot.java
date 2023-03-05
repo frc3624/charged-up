@@ -41,6 +41,7 @@ public class Robot extends TimedRobot implements GlobalSettings {
 		// autonomous chooser on the dashboard.
 		m_robotContainer = new RobotContainer();
 		ph.enableCompressorDigital();
+		// ph.
 	}
 
 	/**

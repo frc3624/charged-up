@@ -12,7 +12,7 @@ import frc.robot.subsystems.dumpy.Dumper;
 public class AutoJank extends CommandBase {
 	private Drive drive;
 	private Timer timer = new Timer();
-	private Dumper dump = new Dumper();
+	private Dumper dump;
 	private final double EPSILON = .00001;
 	/** Creates a new AutoJank. */
 	public AutoJank(Drive drive, Dumper dump) {
@@ -27,20 +27,20 @@ public class AutoJank extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-
+		dump.dump();
+		Timer.delay(1);
+		dump.dump();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (timer.get() < 1) {
-			dump.dump();
-			Timer.delay(1);
-			dump.dump();
-		} else if (timer.get() < 3)
+		if (timer.get() < 3) {
+			drive.arcadeDrive(0, 0);
+		} else if (timer.get() < 4.5)
 			drive.arcadeDrive(0, -1);
-		else if (drive.getAngle() - 5 >= EPSILON)
-			drive.arcadeDrive(0, -.4);
+		else if (timer.get() < 5.2)
+			drive.arcadeDrive(.3, 0);
 		else
 			drive.arcadeDrive(0, 0);
 	}
