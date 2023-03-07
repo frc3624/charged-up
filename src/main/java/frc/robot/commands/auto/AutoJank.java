@@ -38,9 +38,9 @@ public class AutoJank extends CommandBase {
 		leftMiddle();
 	}
 	public void leftMiddle() {
-		if (timer.get() < 3) {
+		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
-		} else if (timer.get() < 4.5)
+		else if (timer.get() < 4.5)
 			drive.arcadeDrive(0, -1);
 		else if (timer.get() < 5.2)
 			drive.arcadeDrive(.3, 0);
