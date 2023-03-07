@@ -35,6 +35,9 @@ public class AutoJank extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		leftMiddle();
+	}
+	public void leftMiddle() {
 		if (timer.get() < 3) {
 			drive.arcadeDrive(0, 0);
 		} else if (timer.get() < 4.5)
@@ -44,7 +47,6 @@ public class AutoJank extends CommandBase {
 		else
 			drive.arcadeDrive(0, 0);
 	}
-
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
