@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
+import io.github.oblarg.oblog.annotations.Config;
 
 public class AutoJank extends CommandBase {
 	private Drive drive;
@@ -37,6 +38,7 @@ public class AutoJank extends CommandBase {
 	public void execute() {
 		leftMiddle();
 	}
+	@Config.ToggleButton
 	public void leftMiddle() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
