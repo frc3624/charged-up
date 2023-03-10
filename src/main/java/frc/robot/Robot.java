@@ -27,6 +27,7 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	// NetworkTableInstance instance = new NetworkTableInstance.getDefault();
 	// NetworkTableInstance.getDefault().getTable("pneumatics");
 	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
+
 	// private final GenericEntry pressure = tab.add("Pressure",
 	// ph.getPressure(PCM_ID)).getEntry();
 

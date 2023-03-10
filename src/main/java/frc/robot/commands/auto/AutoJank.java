@@ -39,6 +39,7 @@ public class AutoJank extends CommandBase {
 		leftMiddle();
 	}
 	@Config.ToggleButton
+
 	public void leftMiddle() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
@@ -49,6 +50,19 @@ public class AutoJank extends CommandBase {
 		else
 			drive.arcadeDrive(0, 0);
 	}
+	public void rightMiddle() {
+
+	}
+	public void farRight() {
+
+	}
+	public void middle() {
+
+	}
+	public void farLeft() {
+
+	}
+
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
