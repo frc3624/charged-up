@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -24,10 +25,11 @@ public class Robot extends TimedRobot implements GlobalSettings {
 	private RobotContainer m_robotContainer;
 	private final PneumaticHub ph = new PneumaticHub(PCM_ID);
 
-	// NetworkTableInstance instance = new NetworkTableInstance.getDefault();
+	//NetworkTableInstance instance = new NetworkTableInstance.getDefault();
 	// NetworkTableInstance.getDefault().getTable("pneumatics");
 	private final ShuffleboardTab tab = Shuffleboard.getTab("pneumatics");
-
+	
+	//Shuffleboard.getTab("user tab").add();
 	// private final GenericEntry pressure = tab.add("Pressure",
 	// ph.getPressure(PCM_ID)).getEntry();
 
