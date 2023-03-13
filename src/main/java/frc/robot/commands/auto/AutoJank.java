@@ -5,35 +5,29 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.networktables.NetworkTableListener;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
-import io.github.oblarg.oblog.annotations.Config;
 
 public class AutoJank extends CommandBase {
 	private Drive drive;
 	private Timer timer = new Timer();
 	private Dumper dump;
-	 private NetworkTableInstance instance = NetworkTableInstance.getDefault();
-	//private NetworkTable table = instance.getTable("auto");
+	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
+	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 
-	//private final ComplexWidget leftMid = tab.add("leftMiddle", new AutoLeftMiddle(drive));
-	//private SendableChooser<CommandBase> auto = new SendableChooser<CommandBase>();
+	// private final ComplexWidget leftMid = tab.add("leftMiddle", new
+	// AutoLeftMiddle(drive));
+	// private SendableChooser<CommandBase> auto = new
+	// SendableChooser<CommandBase>();
 	private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 	private GenericEntry leftMid = tab.add("Left Middle Routine", false).getEntry();
+	private GenericEntry straight = tab.add("Straight", false).getEntry();
 	/** Creates a new AutoJank. */
 	public AutoJank(Drive drive, Dumper dump) {
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -42,8 +36,8 @@ public class AutoJank extends CommandBase {
 		addRequirements(dump);
 		addRequirements(drive);
 		timer.start();
-		//auto.addOption("leftMid", new AutoJank(drive, dump));
-		//SmartDashboard.putData("Auto Modes",auto);
+		// auto.addOption("leftMid", new AutoJank(drive, dump));
+		// SmartDashboard.putData("Auto Modes",auto);
 	}
 
 	// Called when the command is initially scheduled.
@@ -59,10 +53,14 @@ public class AutoJank extends CommandBase {
 	public void execute() {
 		decisionTree();
 	}
-	//@Config.ToggleButton
+	// @Config.ToggleButton
 
-	public void decisionTree(){
-		if()
+	public void decisionTree() {
+		if (leftMid.getBoolean(false)) {
+			new AutoLeftMiddle(drive);
+		} else if (straight.getBoolean(false)) {
+			new AutoStraight(drive);
+		}
 	}
 	// Called once the command ends or is interrupted.
 	@Override
