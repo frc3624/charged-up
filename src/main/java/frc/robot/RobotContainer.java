@@ -93,7 +93,7 @@ public class RobotContainer implements GlobalSettings {
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
 		// return new AutoRoutine(drive, straight2, straight1, turn);
-		return new AutoJank(drive, dump);
+		return new AutoJank(drive, dump, trap);
 		// return straight1.andThen(turn.andThen(straight2));
 		// return straight1.andThen(turn.andThen(straight2));
 		// return Autos.exampleAuto(drive);

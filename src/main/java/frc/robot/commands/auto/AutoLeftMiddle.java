@@ -39,6 +39,7 @@ public class AutoLeftMiddle extends CommandBase {
 		else
 			drive.arcadeDrive(0, 0);
 	}
+
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
