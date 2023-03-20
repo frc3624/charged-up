@@ -19,7 +19,7 @@ public class AutoJank extends CommandBase {
 	private Timer timer = new Timer();
 	private Dumper dump;
 	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
-	private int choice = (int) SmartDashboard.getNumber("Auto Position", 0);
+	private int choice = (int) SmartDashboard.getNumber("AutoSelector", 3);
 	private Trap trap;
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
@@ -62,14 +62,16 @@ public class AutoJank extends CommandBase {
 		decisionTree();
 	}
 	// @Config.ToggleButton
-
+	public int getChoice() {
+		return choice;
+	}
 	public void decisionTree() {
 		if (choice == 1) {
 			leftMiddle();
 		} else if (choice == 2) {
 			trap.toggleDoor();
 		} else if (choice == 3) {
-			straight();
+			drive.arcadeDrive(0, .1);
 		}
 	}
 	public void leftMiddle() {
@@ -84,7 +86,7 @@ public class AutoJank extends CommandBase {
 	}
 	public void straight() {
 		if (timer.get() < 5) {
-			drive.arcadeDrive(0, .6);
+			drive.arcadeDrive(0, .1);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
 	}
