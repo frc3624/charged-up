@@ -6,8 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drive;
@@ -19,7 +18,13 @@ public class AutoJank extends CommandBase {
 	private Timer timer = new Timer();
 	private Dumper dump;
 	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
-	private int choice = (int) SmartDashboard.getNumber("AutoSelector", 3);
+	// private int choice = (int) (SmartDashboard.getNumber("Auto Selector", 3));
+	private static final String left = "Left";
+	private static final String right = "Right";
+	private static final String straight = "Straight";
+	private String m_autoSelected;
+	private final SendableChooser<String> choice = new SendableChooser<>();
+	// private boolean button = SmartDashboard.getBoolean("autobutton", false);
 	private Trap trap;
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
@@ -28,7 +33,7 @@ public class AutoJank extends CommandBase {
 	// AutoLeftMiddle(drive));
 	// private SendableChooser<CommandBase> auto = new
 	// SendableChooser<CommandBase>();
-	private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
+	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 	// private GenericEntry leftMid = tab.add("Left Middle Routine",
 	// false).getEntry();
 	// private GenericEntry straight = tab.add("Straight", false).getEntry();
@@ -43,6 +48,11 @@ public class AutoJank extends CommandBase {
 		addRequirements(drive);
 		addRequirements(trap);
 		timer.start();
+
+		choice.setDefaultOption("Left", left);
+		choice.addOption("Right", right);
+		choice.addOption("Straight", straight);
+		SmartDashboard.putData("Auto Choices", choice);
 		// auto.addOption("leftMid", new AutoJank(drive, dump));
 		// SmartDashboard.putData("Auto Modes",auto);
 	}
@@ -62,35 +72,54 @@ public class AutoJank extends CommandBase {
 		decisionTree();
 	}
 	// @Config.ToggleButton
-	public int getChoice() {
-		return choice;
-	}
+	// public int getChoice() {
+	// return choice;
+	// }
 	public void decisionTree() {
-		if (choice == 1) {
-			leftMiddle();
-		} else if (choice == 2) {
-			trap.toggleDoor();
-		} else if (choice == 3) {
-			drive.arcadeDrive(0, .1);
+		String currentRoutine = choice.getSelected();
+		if (currentRoutine.equals("Right")) {
+			right();
+			// System.out.println(1);
+			// drive.arcadeDrive(0, 0);
+		} else if (currentRoutine.equals("Left")) {
+			// trap.toggleDoor();
+			left();
+			// drive.arcadeDrive(0, 0);
+			// System.out.println(2);
+		} else if (currentRoutine.equals("Straight")) {
+			straight();
+			// drive.arcadeDrive(0, 0);
+			// System.out.println(3);
 		}
 	}
-	public void leftMiddle() {
+	public void left() {
+		// System.out.print(timer.get());
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 4.5)
 			drive.arcadeDrive(0, -1);
-		else if (timer.get() < 5.2)
-			drive.arcadeDrive(.3, 0);
+		// else if (timer.get() < 5.2)
+		// drive.arcadeDrive(.3, 0);
 		else
 			drive.arcadeDrive(0, 0);
 	}
 	public void straight() {
-		if (timer.get() < 5) {
-			drive.arcadeDrive(0, .1);// was .6
+		if (timer.get() < 3)
+			drive.arcadeDrive(0, 0);
+		else if (timer.get() < 5) {
+			drive.arcadeDrive(0, .6);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
 	}
-
+	public void right() {
+		if (timer.get() < 3) {
+			drive.arcadeDrive(.4, 0);
+		} else if (timer.get() < 7) {
+			drive.arcadeDrive(0, .7);
+		} else {
+			drive.arcadeDrive(0, 0);
+		}
+	}
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
