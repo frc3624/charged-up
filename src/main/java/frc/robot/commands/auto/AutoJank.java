@@ -18,13 +18,13 @@ public class AutoJank extends CommandBase {
 	private Timer timer = new Timer();
 	private Dumper dump;
 	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
-	// private int choice = (int) (SmartDashboard.getNumber("Auto Selector", 3));
 	private static final String left = "Left";
 	private static final String right = "Right";
 	private static final String straight = "Straight";
+	private static final String middle = "Middle";
+	private static final String goToChargingStation = "Go To Charging Station";
 	private String m_autoSelected;
 	private final SendableChooser<String> choice = new SendableChooser<>();
-	// private boolean button = SmartDashboard.getBoolean("autobutton", false);
 	private Trap trap;
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
@@ -51,7 +51,9 @@ public class AutoJank extends CommandBase {
 
 		choice.setDefaultOption("Left", left);
 		choice.addOption("Right", right);
+		choice.addOption("Middle", middle);
 		choice.addOption("Straight", straight);
+		choice.addOption("Go To Charging Station", goToChargingStation);
 		SmartDashboard.putData("Auto Choices", choice);
 		// auto.addOption("leftMid", new AutoJank(drive, dump));
 		// SmartDashboard.putData("Auto Modes",auto);
@@ -90,16 +92,19 @@ public class AutoJank extends CommandBase {
 			straight();
 			// drive.arcadeDrive(0, 0);
 			// System.out.println(3);
+		} else if (currentRoutine.equals("Middle")) {
+			middle();
+		} else if (currentRoutine.equals("Go To Charging Station")) {
+			goToChargingStation();
 		}
 	}
 	public void left() {
-		// System.out.print(timer.get());
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 4.5)
 			drive.arcadeDrive(0, -1);
-		// else if (timer.get() < 5.2)
-		// drive.arcadeDrive(.3, 0);
+		else if (timer.get() < 5.2)
+			drive.arcadeDrive(.3, 0);
 		else
 			drive.arcadeDrive(0, 0);
 	}
@@ -107,14 +112,44 @@ public class AutoJank extends CommandBase {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 5) {
-			drive.arcadeDrive(0, .6);// was .6
+			drive.arcadeDrive(0, -.6);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
 	}
 	public void right() {
 		if (timer.get() < 3) {
+			drive.arcadeDrive(0, 0);
+		} else if (timer.get() < 6) {
 			drive.arcadeDrive(.4, 0);
+		} else if (timer.get() < 9) {
+			drive.arcadeDrive(0, -.7);
+		} else {
+			drive.arcadeDrive(0, 0);
+		}
+	}
+	public void middle() {
+		if (timer.get() < 3) {
+			drive.arcadeDrive(0, 0);
+		} else if (timer.get() < 5) {
+			drive.arcadeDrive(.4, 0);
+		} else if (timer.get() < 8) {
+			drive.arcadeDrive(0, -.7);
+		} else {
+			drive.arcadeDrive(0, 0);
+		}
+	}
+	public void goToChargingStation() {
+		if (timer.get() < 3) {
+			drive.arcadeDrive(0, 0);
+		} else if (timer.get() < 5) {
+			drive.arcadeDrive(0, .6);
 		} else if (timer.get() < 7) {
+			drive.arcadeDrive(.4, 0);
+		} else if (timer.get() < 9) {
+			drive.arcadeDrive(0, .9);
+		} else if (timer.get() < 11) {
+			drive.arcadeDrive(-.5, 0);
+		} else if (timer.get() < 15) {
 			drive.arcadeDrive(0, .7);
 		} else {
 			drive.arcadeDrive(0, 0);
