@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
-import frc.robot.subsystems.dumpy.Trap;
 
 public class AutoJank extends CommandBase {
 	private Drive drive;
@@ -22,10 +21,9 @@ public class AutoJank extends CommandBase {
 	private static final String right = "Right";
 	private static final String straight = "Straight";
 	private static final String middle = "Middle";
-	private static final String goToChargingStation = "Go To Charging Station";
-	private String m_autoSelected;
+	private static final String humanPlayerLeft = "Human Player Station from the Left";
+	private static final String humanPlayerRight = "Human Player Station from the Right";
 	private final SendableChooser<String> choice = new SendableChooser<>();
-	private Trap trap;
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 
@@ -39,21 +37,21 @@ public class AutoJank extends CommandBase {
 	// private GenericEntry straight = tab.add("Straight", false).getEntry();
 
 	/** Creates a new AutoJank. */
-	public AutoJank(Drive drive, Dumper dump, Trap trap) {
+	public AutoJank(Drive drive, Dumper dump) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.drive = drive;
 		this.dump = dump;
-		this.trap = trap;
 		addRequirements(dump);
 		addRequirements(drive);
-		addRequirements(trap);
 		timer.start();
 
 		choice.setDefaultOption("Left", left);
 		choice.addOption("Right", right);
 		choice.addOption("Middle", middle);
 		choice.addOption("Straight", straight);
-		choice.addOption("Go To Charging Station", goToChargingStation);
+		choice.addOption("Human Player Station from the Left", humanPlayerLeft);
+		choice.addOption("Human Player Station from the Right", humanPlayerRight);
+
 		SmartDashboard.putData("Auto Choices", choice);
 		// auto.addOption("leftMid", new AutoJank(drive, dump));
 		// SmartDashboard.putData("Auto Modes",auto);
@@ -73,29 +71,20 @@ public class AutoJank extends CommandBase {
 	public void execute() {
 		decisionTree();
 	}
-	// @Config.ToggleButton
-	// public int getChoice() {
-	// return choice;
-	// }
 	public void decisionTree() {
 		String currentRoutine = choice.getSelected();
 		if (currentRoutine.equals("Right")) {
 			right();
-			// System.out.println(1);
-			// drive.arcadeDrive(0, 0);
 		} else if (currentRoutine.equals("Left")) {
-			// trap.toggleDoor();
 			left();
-			// drive.arcadeDrive(0, 0);
-			// System.out.println(2);
 		} else if (currentRoutine.equals("Straight")) {
 			straight();
-			// drive.arcadeDrive(0, 0);
-			// System.out.println(3);
 		} else if (currentRoutine.equals("Middle")) {
 			middle();
-		} else if (currentRoutine.equals("Go To Charging Station")) {
-			goToChargingStation();
+		} else if (currentRoutine.equals("Human Player Station from the Left")) {
+			humanPlayerLeft();
+		} else if (currentRoutine.equals("Human Player Station from the Right")) {
+
 		}
 	}
 	public void left() {
@@ -138,7 +127,24 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(0, 0);
 		}
 	}
-	public void goToChargingStation() {
+	public void humanPlayerLeft() {
+		if (timer.get() < 3) {
+			drive.arcadeDrive(0, 0);
+		} else if (timer.get() < 5) {
+			drive.arcadeDrive(0, .6);
+		} else if (timer.get() < 7) {
+			drive.arcadeDrive(.4, 0);
+		} else if (timer.get() < 9) {
+			drive.arcadeDrive(0, .9);
+		} else if (timer.get() < 11) {
+			drive.arcadeDrive(-.5, 0);
+		} else if (timer.get() < 15) {
+			drive.arcadeDrive(0, .7);
+		} else {
+			drive.arcadeDrive(0, 0);
+		}
+	}
+	public void humanPlayerRight() {
 		if (timer.get() < 3) {
 			drive.arcadeDrive(0, 0);
 		} else if (timer.get() < 5) {
