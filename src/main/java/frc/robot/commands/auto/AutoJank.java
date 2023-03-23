@@ -21,8 +21,8 @@ public class AutoJank extends CommandBase {
 	private static final String right = "Right";
 	private static final String straight = "Straight";
 	private static final String middle = "Middle";
-	private static final String humanPlayerLeft = "Human Player Station from the Left";
-	private static final String humanPlayerRight = "Human Player Station from the Right";
+	private static final String humanPlayerLeftRed = "Human Player Station from the Left Red";
+	private static final String humanPlayerRightRed = "Human Player Station from the Right Red";
 	private final SendableChooser<String> choice = new SendableChooser<>();
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
@@ -49,8 +49,8 @@ public class AutoJank extends CommandBase {
 		choice.addOption("Right", right);
 		choice.addOption("Middle", middle);
 		choice.addOption("Straight", straight);
-		choice.addOption("Human Player Station from the Left", humanPlayerLeft);
-		choice.addOption("Human Player Station from the Right", humanPlayerRight);
+		choice.addOption("Human Player Station from the Left Red", humanPlayerLeftRed);
+		choice.addOption("Human Player Station from the Right Red", humanPlayerRightRed);
 
 		SmartDashboard.putData("Auto Choices", choice);
 		// auto.addOption("leftMid", new AutoJank(drive, dump));
@@ -60,10 +60,10 @@ public class AutoJank extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		System.out.println(choice);
-		dump.dump();
-		Timer.delay(1);
-		dump.dump();
+		// System.out.println(choice);
+		// dump.dump();
+		// Timer.delay(1);
+		// dump.dump();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
@@ -81,10 +81,10 @@ public class AutoJank extends CommandBase {
 			straight();
 		} else if (currentRoutine.equals("Middle")) {
 			middle();
-		} else if (currentRoutine.equals("Human Player Station from the Left")) {
-			humanPlayerLeft();
-		} else if (currentRoutine.equals("Human Player Station from the Right")) {
-
+		} else if (currentRoutine.equals("Human Player Station from the Left Red")) {
+			humanPlayerLeftRed();
+		} else if (currentRoutine.equals("Human Player Station from the Right Red")) {
+			humanPlayerRightRed();
 		}
 	}
 	public void left() {
@@ -96,11 +96,21 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(.3, 0);
 		else
 			drive.arcadeDrive(0, 0);
+
+		// this is 1.75 second at .5 speed for a 180 turn
+		// if (timer.get() < 3)
+		// drive.arcadeDrive(0, 0);
+		// else if(timer.get() < 4.75)
+		// drive.arcadeDrive(.5,0);
+		// else
+		// drive.arcadeDrive(0, 0);
+
+		// .3 for 1 second is 30 degrees
 	}
 	public void straight() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
-		else if (timer.get() < 5) {
+		else if (timer.get() < 8) {
 			drive.arcadeDrive(0, -.6);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
@@ -127,7 +137,7 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(0, 0);
 		}
 	}
-	public void humanPlayerLeft() {
+	public void humanPlayerLeftRed() {
 		if (timer.get() < 3) {
 			drive.arcadeDrive(0, 0);
 		} else if (timer.get() < 5) {
@@ -144,7 +154,7 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(0, 0);
 		}
 	}
-	public void humanPlayerRight() {
+	public void humanPlayerRightRed() {
 		if (timer.get() < 3) {
 			drive.arcadeDrive(0, 0);
 		} else if (timer.get() < 5) {
