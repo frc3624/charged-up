@@ -6,6 +6,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -13,6 +14,7 @@ import frc.robot.subsystems.drivetrain.Drive;
 import frc.robot.subsystems.dumpy.Dumper;
 
 public class AutoJank extends CommandBase {
+	private Gyro gyro;
 	private Drive drive;
 	private Timer timer = new Timer();
 	private Dumper dump;
@@ -37,10 +39,12 @@ public class AutoJank extends CommandBase {
 	// private GenericEntry straight = tab.add("Straight", false).getEntry();
 
 	/** Creates a new AutoJank. */
-	public AutoJank(Drive drive, Dumper dump) {
+	public AutoJank(Drive drive, Dumper dump, Gyro gyro) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.drive = drive;
 		this.dump = dump;
+		this.gyro = gyro;
+		addRequirements(gyro);
 		addRequirements(dump);
 		addRequirements(drive);
 		timer.start();
@@ -61,15 +65,22 @@ public class AutoJank extends CommandBase {
 	@Override
 	public void initialize() {
 		// System.out.println(choice);
-		// dump.dump();
-		// Timer.delay(1);
-		// dump.dump();
+		dump.dump();
+		Timer.delay(1);
+		dump.dump();
+		// while(timer.get() < 6){
+		// drive.arcadeDrive(0, .4);
+		// }
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
 		decisionTree();
+		// drive.arcadeDrive(0, 0);
+		// drive.arcadeDrive(0, 0);
+		// System.out.println(gyro.getAngle());
+
 	}
 	public void decisionTree() {
 		String currentRoutine = choice.getSelected();
@@ -90,10 +101,12 @@ public class AutoJank extends CommandBase {
 	public void left() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
-		else if (timer.get() < 4.5)
-			drive.arcadeDrive(0, -1);
-		else if (timer.get() < 5.2)
-			drive.arcadeDrive(.3, 0);
+		else if (timer.get() < 9)
+			drive.arcadeDrive(0, -.65);
+		// else if (timer.get() < 5.2)
+		// drive.arcadeDrive(.3, 0);
+		else if (timer.get() < 12.5)
+			drive.arcadeDrive(0, .65);
 		else
 			drive.arcadeDrive(0, 0);
 
@@ -110,7 +123,7 @@ public class AutoJank extends CommandBase {
 	public void straight() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
-		else if (timer.get() < 8) {
+		else if (timer.get() < 10) {
 			drive.arcadeDrive(0, -.6);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
@@ -171,9 +184,13 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(0, 0);
 		}
 	}
+	public void leveling() {
+
+	}
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		drive.arcadeDrive(0, 0);
 	}
 
 	// Returns true when the command should end.

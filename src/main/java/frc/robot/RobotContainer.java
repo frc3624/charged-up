@@ -20,6 +20,7 @@ import frc.robot.commands.dumpy.ShiftDump;
 import frc.robot.commands.dumpy.ShiftTrap;
 import frc.robot.commands.limelight.DrivePosition;
 import frc.robot.commands.limelight.IntakePosition;
+import frc.robot.subsystems.Gyro;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.cooling.Fan;
 import frc.robot.subsystems.drivetrain.Drive;
@@ -47,6 +48,7 @@ public class RobotContainer implements GlobalSettings {
 	private final Trap trap = new Trap();
 	private final Limelight limelight = new Limelight();
 	private final Fan fan = new Fan();
+	private final Gyro gyro = new Gyro();
 
 	// Commands
 	private final DriveTrain driveTrain = new DriveTrain(drive, xboxController, fan, compressor);
@@ -93,7 +95,7 @@ public class RobotContainer implements GlobalSettings {
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
 		// return new AutoRoutine(drive, straight2, straight1, turn);
-		return new AutoJank(drive, dump);
+		return new AutoJank(drive, dump, gyro);
 		// return straight1.andThen(turn.andThen(straight2));
 		// return straight1.andThen(turn.andThen(straight2));
 		// return Autos.exampleAuto(drive);
