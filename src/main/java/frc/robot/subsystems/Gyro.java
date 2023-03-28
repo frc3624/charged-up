@@ -4,12 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyro extends SubsystemBase {
-	AHRS gyro = new AHRS();
+	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 	/** Creates a new Gyro. */
 	public Gyro() {
 		gyro.calibrate();;
@@ -20,6 +19,7 @@ public class Gyro extends SubsystemBase {
 	public double getRate() {
 		return gyro.getRate();
 	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

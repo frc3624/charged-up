@@ -20,11 +20,8 @@ public class AutoJank extends CommandBase {
 	private Dumper dump;
 	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
 	private static final String left = "Left";
-	private static final String right = "Right";
 	private static final String straight = "Straight";
-	private static final String middle = "Middle";
-	private static final String humanPlayerLeftRed = "Human Player Station from the Left Red";
-	private static final String humanPlayerRightRed = "Human Player Station from the Right Red";
+	private static final String autoBalance = "Auto Balance";
 	private final SendableChooser<String> choice = new SendableChooser<>();
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
@@ -50,12 +47,8 @@ public class AutoJank extends CommandBase {
 		timer.start();
 
 		choice.setDefaultOption("Left", left);
-		choice.addOption("Right", right);
-		choice.addOption("Middle", middle);
 		choice.addOption("Straight", straight);
-		choice.addOption("Human Player Station from the Left Red", humanPlayerLeftRed);
-		choice.addOption("Human Player Station from the Right Red", humanPlayerRightRed);
-
+		choice.addOption("Auto Balance", autoBalance);
 		SmartDashboard.putData("Auto Choices", choice);
 		// auto.addOption("leftMid", new AutoJank(drive, dump));
 		// SmartDashboard.putData("Auto Modes",auto);
@@ -84,41 +77,45 @@ public class AutoJank extends CommandBase {
 	}
 	public void decisionTree() {
 		String currentRoutine = choice.getSelected();
-		if (currentRoutine.equals("Right")) {
-			right();
-		} else if (currentRoutine.equals("Left")) {
+		if (currentRoutine.equals("Left")) {
 			left();
 		} else if (currentRoutine.equals("Straight")) {
 			straight();
-		} else if (currentRoutine.equals("Middle")) {
-			middle();
-		} else if (currentRoutine.equals("Human Player Station from the Left Red")) {
-			humanPlayerLeftRed();
-		} else if (currentRoutine.equals("Human Player Station from the Right Red")) {
-			humanPlayerRightRed();
+		} else if (currentRoutine.equals("Auto Balance")) {
+			autoBalance();
 		}
 	}
-	public void left() {
+	public void autoBalance() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 9)
 			drive.arcadeDrive(0, -.65);
-		// else if (timer.get() < 5.2)
-		// drive.arcadeDrive(.3, 0);
-		else if (timer.get() < 12.5)
+		else if (timer.get() < 12)
+			drive.arcadeDrive(0, .5);
+		else if (gyro.getAngle() > 5)
+			drive.arcadeDrive(0, .2);
+		else
+			drive.arcadeDrive(0, 0);
+	}
+	public void left() {
+		// if (timer.get() < 3)
+		// drive.arcadeDrive(0, 0);
+		// else if (timer.get() < 9)
+		// drive.arcadeDrive(0, -.65);
+		// // else if (timer.get() < 5.2)
+		// // drive.arcadeDrive(.3, 0);
+		// else if (timer.get() < 12.5)
+		// drive.arcadeDrive(0, .65);
+		// else
+		// drive.arcadeDrive(0, 0);
+		if (timer.get() < 3)
+			drive.arcadeDrive(0, 0);
+		else if (timer.get() < 7.4)
+			drive.arcadeDrive(0, -.65);
+		else if (timer.get() < 10)
 			drive.arcadeDrive(0, .65);
 		else
 			drive.arcadeDrive(0, 0);
-
-		// this is 1.75 second at .5 speed for a 180 turn
-		// if (timer.get() < 3)
-		// drive.arcadeDrive(0, 0);
-		// else if(timer.get() < 4.75)
-		// drive.arcadeDrive(.5,0);
-		// else
-		// drive.arcadeDrive(0, 0);
-
-		// .3 for 1 second is 30 degrees
 	}
 	public void straight() {
 		if (timer.get() < 3)
@@ -128,65 +125,7 @@ public class AutoJank extends CommandBase {
 		} else
 			drive.arcadeDrive(0, 0);
 	}
-	public void right() {
-		if (timer.get() < 3) {
-			drive.arcadeDrive(0, 0);
-		} else if (timer.get() < 6) {
-			drive.arcadeDrive(.4, 0);
-		} else if (timer.get() < 9) {
-			drive.arcadeDrive(0, -.7);
-		} else {
-			drive.arcadeDrive(0, 0);
-		}
-	}
-	public void middle() {
-		if (timer.get() < 3) {
-			drive.arcadeDrive(0, 0);
-		} else if (timer.get() < 5) {
-			drive.arcadeDrive(.4, 0);
-		} else if (timer.get() < 8) {
-			drive.arcadeDrive(0, -.7);
-		} else {
-			drive.arcadeDrive(0, 0);
-		}
-	}
-	public void humanPlayerLeftRed() {
-		if (timer.get() < 3) {
-			drive.arcadeDrive(0, 0);
-		} else if (timer.get() < 5) {
-			drive.arcadeDrive(0, .6);
-		} else if (timer.get() < 7) {
-			drive.arcadeDrive(.4, 0);
-		} else if (timer.get() < 9) {
-			drive.arcadeDrive(0, .9);
-		} else if (timer.get() < 11) {
-			drive.arcadeDrive(-.5, 0);
-		} else if (timer.get() < 15) {
-			drive.arcadeDrive(0, .7);
-		} else {
-			drive.arcadeDrive(0, 0);
-		}
-	}
-	public void humanPlayerRightRed() {
-		if (timer.get() < 3) {
-			drive.arcadeDrive(0, 0);
-		} else if (timer.get() < 5) {
-			drive.arcadeDrive(0, .6);
-		} else if (timer.get() < 7) {
-			drive.arcadeDrive(.4, 0);
-		} else if (timer.get() < 9) {
-			drive.arcadeDrive(0, .9);
-		} else if (timer.get() < 11) {
-			drive.arcadeDrive(-.5, 0);
-		} else if (timer.get() < 15) {
-			drive.arcadeDrive(0, .7);
-		} else {
-			drive.arcadeDrive(0, 0);
-		}
-	}
-	public void leveling() {
 
-	}
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
