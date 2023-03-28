@@ -23,6 +23,7 @@ public class AutoJank extends CommandBase {
 	private static final String straight = "Straight";
 	private static final String autoBalance = "Auto Balance";
 	private final SendableChooser<String> choice = new SendableChooser<>();
+	private double initialAngle;
 	// private NetworkTable table = instance.getTable("auto");
 	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 
@@ -44,8 +45,8 @@ public class AutoJank extends CommandBase {
 		addRequirements(gyro);
 		addRequirements(dump);
 		addRequirements(drive);
+		gyro.calibrate();
 		timer.start();
-
 		choice.setDefaultOption("Left", left);
 		choice.addOption("Straight", straight);
 		choice.addOption("Auto Balance", autoBalance);
@@ -70,10 +71,13 @@ public class AutoJank extends CommandBase {
 	@Override
 	public void execute() {
 		decisionTree();
+		System.out.println(gyro.getAngle());
 		// drive.arcadeDrive(0, 0);
 		// drive.arcadeDrive(0, 0);
 		// System.out.println(gyro.getAngle());
-
+		// if(timer.get() < 2){
+		// drive.arcadeDrive(0, 1);
+		// }
 	}
 	public void decisionTree() {
 		String currentRoutine = choice.getSelected();
@@ -90,7 +94,7 @@ public class AutoJank extends CommandBase {
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 9)
 			drive.arcadeDrive(0, -.65);
-		else if (timer.get() < 12)
+		else if (timer.get() < 11)
 			drive.arcadeDrive(0, .5);
 		else if (gyro.getAngle() > 5)
 			drive.arcadeDrive(0, .2);
