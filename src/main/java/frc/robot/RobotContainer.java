@@ -37,8 +37,10 @@ public class RobotContainer implements GlobalSettings {
 	private final Trigger driveViewButton = xboxController.povDown();
 
 	UsbCamera rearCam = CameraServer.startAutomaticCapture();
+	// UsbCamera frontCam = CameraServer.startAutomaticCapture();
 	CvSink cvSink = CameraServer.getVideo();
 	CvSource outputStream = CameraServer.putVideo("Rear Cam", 680, 480);
+	// CvSource output2 = CameraServer.putVideo("Front Cam", 680, 480);
 
 	// Single instance of Compressor, easy access
 	Compressor compressor = new Compressor(PCM_ID, PneumaticsModuleType.REVPH);
@@ -75,6 +77,8 @@ public class RobotContainer implements GlobalSettings {
 		configureButtonBindings();
 		drive.setDefaultCommand(driveTrain);
 		compressor.enableDigital();
+		gyro.calibrate();
+
 		// fan.setDefaultCommand(cooler);
 		// fan.coolingRoutine(compressor);
 	}
@@ -95,7 +99,7 @@ public class RobotContainer implements GlobalSettings {
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
 		// return new AutoRoutine(drive, straight2, straight1, turn);
-		return new AutoJank(drive, dump, gyro);
+		return new AutoJank(drive, dump);
 		// return straight1.andThen(turn.andThen(straight2));
 		// return straight1.andThen(turn.andThen(straight2));
 		// return Autos.exampleAuto(drive);

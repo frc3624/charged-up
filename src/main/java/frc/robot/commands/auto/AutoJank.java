@@ -4,7 +4,6 @@
 
 package frc.robot.commands.auto;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -18,14 +17,10 @@ public class AutoJank extends CommandBase {
 	private Drive drive;
 	private Timer timer = new Timer();
 	private Dumper dump;
-	private NetworkTableInstance instance = NetworkTableInstance.getDefault();
-	private static final String left = "Left";
+	private static final String timedBalance = "Timed Balance";
 	private static final String straight = "Straight";
 	private static final String autoBalance = "Auto Balance";
 	private final SendableChooser<String> choice = new SendableChooser<>();
-	private double initialAngle;
-	// private NetworkTable table = instance.getTable("auto");
-	// private final ShuffleboardTab tab = Shuffleboard.getTab("auto");
 
 	// private final ComplexWidget leftMid = tab.add("leftMiddle", new
 	// AutoLeftMiddle(drive));
@@ -37,28 +32,26 @@ public class AutoJank extends CommandBase {
 	// private GenericEntry straight = tab.add("Straight", false).getEntry();
 
 	/** Creates a new AutoJank. */
-	public AutoJank(Drive drive, Dumper dump, Gyro gyro) {
+	public AutoJank(Drive drive, Dumper dump) {
 		// Use addRequirements() here to declare subsystem dependencies.
 		this.drive = drive;
 		this.dump = dump;
-		this.gyro = gyro;
-		addRequirements(gyro);
+		// this.gyro = gyro;
+		// addRequirements(gyro);
 		addRequirements(dump);
 		addRequirements(drive);
-		gyro.calibrate();
 		timer.start();
-		choice.setDefaultOption("Left", left);
+		choice.setDefaultOption("Auto Balance", autoBalance);
 		choice.addOption("Straight", straight);
-		choice.addOption("Auto Balance", autoBalance);
+		choice.addOption("Timed Balance", timedBalance);
 		SmartDashboard.putData("Auto Choices", choice);
-		// auto.addOption("leftMid", new AutoJank(drive, dump));
-		// SmartDashboard.putData("Auto Modes",auto);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 		// System.out.println(choice);
+		// drive.arcadeDrive(0, .65);
 		dump.dump();
 		Timer.delay(1);
 		dump.dump();
@@ -70,19 +63,25 @@ public class AutoJank extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		decisionTree();
-		System.out.println(gyro.getAngle());
+		timedBalance();
+		// System.out.println(gyro.getAngle() + " " + timer.get() );
 		// drive.arcadeDrive(0, 0);
 		// drive.arcadeDrive(0, 0);
 		// System.out.println(gyro.getAngle());
 		// if(timer.get() < 2){
 		// drive.arcadeDrive(0, 1);
 		// }
+		// if(gyro.getAngle() > 2)
+		// drive.arcadeDrive(0, -.2);
+		// if(gyro.getAngle() < -2)
+		// drive.arcadeDrive(0, .2);
+		// else
+		// drive.arcadeDrive(0, 0);
 	}
 	public void decisionTree() {
 		String currentRoutine = choice.getSelected();
-		if (currentRoutine.equals("Left")) {
-			left();
+		if (currentRoutine.equals("Timed Balance")) {
+			timedBalance();
 		} else if (currentRoutine.equals("Straight")) {
 			straight();
 		} else if (currentRoutine.equals("Auto Balance")) {
@@ -90,41 +89,33 @@ public class AutoJank extends CommandBase {
 		}
 	}
 	public void autoBalance() {
+		if (timer.get() < 2)
+			drive.arcadeDrive(0, 0);
+		else if (timer.get() < 6.3)
+			drive.arcadeDrive(0, -.75);
+		else if (timer.get() < 8.4)
+			drive.arcadeDrive(0, .75);
+		// else if (gyro.getAngle() > 2.5)
+		// drive.arcadeDrive(0, -.3);
+		// else if (gyro.getAngle() < -2.5)
+		// drive.arcadeDrive(0, .3);
+		else
+			drive.arcadeDrive(0, 0);
+	}
+	public void timedBalance() {
 		if (timer.get() < 3)
 			drive.arcadeDrive(0, 0);
 		else if (timer.get() < 9)
 			drive.arcadeDrive(0, -.65);
-		else if (timer.get() < 11)
-			drive.arcadeDrive(0, .5);
-		else if (gyro.getAngle() > 5)
-			drive.arcadeDrive(0, .2);
-		else
-			drive.arcadeDrive(0, 0);
-	}
-	public void left() {
-		// if (timer.get() < 3)
-		// drive.arcadeDrive(0, 0);
-		// else if (timer.get() < 9)
-		// drive.arcadeDrive(0, -.65);
-		// // else if (timer.get() < 5.2)
-		// // drive.arcadeDrive(.3, 0);
-		// else if (timer.get() < 12.5)
-		// drive.arcadeDrive(0, .65);
-		// else
-		// drive.arcadeDrive(0, 0);
-		if (timer.get() < 3)
-			drive.arcadeDrive(0, 0);
-		else if (timer.get() < 7.4)
-			drive.arcadeDrive(0, -.65);
-		else if (timer.get() < 10)
+		else if (timer.get() < 12.75)
 			drive.arcadeDrive(0, .65);
 		else
 			drive.arcadeDrive(0, 0);
 	}
 	public void straight() {
-		if (timer.get() < 3)
+		if (timer.get() < 2)
 			drive.arcadeDrive(0, 0);
-		else if (timer.get() < 10) {
+		else if (timer.get() < 9) {
 			drive.arcadeDrive(0, -.6);// was .6
 		} else
 			drive.arcadeDrive(0, 0);
